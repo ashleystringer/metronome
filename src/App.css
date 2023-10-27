@@ -1,0 +1,81 @@
+body {
+    font-family: sans-serif;
+}
+
+.display-time {
+    text-align: center;
+    margin-bottom: 1.2rem;
+}
+
+.metronome {
+    position: relative;
+    background-color: rgb(238, 238, 238);
+    margin: auto;
+    margin-top: 2.5rem;
+    padding: 3.5rem;
+    border: 1px solid rgb(126, 118, 118);
+    border-radius: 1%;
+    height: 25rem;
+    width: 25rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.beat-range {
+    margin-bottom: 5rem;
+}
+
+.beat-range button {
+    border: .2px solid black;
+    height: 100%;
+}
+.beat-range .bpm {
+    text-align: center;
+}
+.beat-range input[type="range"] {
+    width: 90%;
+}
+
+.play-btn {
+    background-color: white;
+    border: 2.5px solid rgb(179, 179, 179);
+    border-radius: 2%;
+    padding: .5rem;
+}
+
+.time-signature {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.time-signature button {
+    border-radius: 50%;
+    border: none;
+    height: 1.8rem;
+    width: 1.8rem;
+    background-color: rgb(102, 163, 255);
+}
+
+.time-signature button .selected {
+    background-color: rgb(75, 121, 190);
+}
+
+.time-signature button:hover {
+    background-color: rgb(75, 121, 190);
+}
+
+.container {
+    justify-content: space-between;
+    display: flex;
+}
+
+.note-value {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+    gap: 5%;
+}
+
+.time-signature .container button {
+    margin-top: 1.2rem;
+}

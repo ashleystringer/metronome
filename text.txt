@@ -1,0 +1,26 @@
+- Beats per minute [X]
+- Play [X]
+- Pause [X]
+- The ability to change BPM while playing [X]
+- The ability to change the time signature while playing
+
+
+
+/*
+
+  What I need - 
+    - the ability to change the number of beats (done)
+    - the ability to change time signature 
+        - 3/4, 4/4, 5/4, 6/8, 7/8, 12/8 
+          - One main beat - 3/4, 4/4, 5/4
+          - Two main beats - 6/8, 12/8
+      */
+
+      /*
+        - 1 2 2
+        - 1 2 2 2
+        - 1 2 2 2 2
+        - 1 2 2 1 2 2 
+        - 1 2 2 2 2 2 2
+        - 1 2 2 1 2 2 1 2 2 1 2 2 
+      */
