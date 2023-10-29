@@ -4,6 +4,7 @@ import DisplayTime from "./DisplayTime";
 import StartMetronome from "./StartMetronome";
 import BPM from "./BPM";
 import TimeSignature from "./TimeSignature";
+import { simpleTime, compoundTime } from "../time-signatures";
 
 export default function Metronome() {
   
@@ -12,8 +13,7 @@ export default function Metronome() {
   const [synth, setSynth] = useState(null);
   const [noteValue, setNoteValue] = useState(4);
   const [noteNumber, setNoteNumber] = useState(4);
-  const [time, setTime] = useState(4);
-  const [secondaryBeat, setSecondaryBeat] = useState(3);
+  const [notePattern, setNotePattern] = useState(simpleTime(4));
 
   useEffect(() => {
     setSynth(new Tone.MembraneSynth().toDestination());
@@ -21,6 +21,8 @@ export default function Metronome() {
 
 
   useEffect(() => {
+
+    console.log(notePattern);
 
     const bpm = 60000 / parseInt(selectedBeat);
 
@@ -32,40 +34,24 @@ export default function Metronome() {
 
       const interval = setInterval(() => {
 
-        //console.log(bpm);
-
-        console.log(`note % time: ${note % noteNumber}  note % secondaryBeat: ${note % secondaryBeat}`);
-
-        if(note != 0 && note % secondaryBeat == 0){
-          //console.log("Secondary Beat");
-        }
-
-
-        if(note == 0){ //note % time == 0
-          //console.log("note == 1");
-          synth.triggerAttackRelease("C3", noteValueStr);
-
-          note++;
-        }
-        else if(note != 0 && note < noteNumber - 1){
-          //console.log("note != 1 && note < time");
-          
-
-          if(note % secondaryBeat == 0){ //signatureType == "compound"
-            console.log("Secondary Beat");
-            synth.triggerAttackRelease("C2", noteValueStr);
-          }else{
-            synth.triggerAttackRelease("C2", noteValueStr);
-          }
-
-          note++;
-        }
-        else if(note == noteNumber - 1){
-          //console.log("note == time");
-          synth.triggerAttackRelease("C2", noteValueStr);
-
+        if(note == notePattern.length){
+          console.log(`notePattern.length: ${notePattern.length}`);
+          console.log("note = 0");
           note = 0;
         }
+
+        if(notePattern[note] == 1){
+          console.log("note == 1");
+          synth.triggerAttackRelease("C3", noteValueStr);
+        }else if(notePattern[note] == 2){
+          console.log("note == 2");
+          synth.triggerAttackRelease("C2", noteValueStr);
+        }else{
+          console.log("note == 3");
+          synth.triggerAttackRelease("C4", noteValueStr);
+        }
+
+        note++;
 
       }, 
       bpm);
@@ -73,11 +59,16 @@ export default function Metronome() {
       return () => clearInterval(interval);
     }
 
-  }, [isMetrOn, selectedBeat, noteNumber]);
+  }, [isMetrOn, selectedBeat, noteNumber, notePattern]);
 
 
   useEffect(() => {
     console.log(`noteValue: ${noteValue}, noteNumber: ${noteNumber}`);
+    if(noteValue == 4){
+      setNotePattern(simpleTime(noteNumber));
+    }else if(noteValue == 8){
+      setNotePattern(compoundTime(noteNumber));
+    }
   }, [noteValue, noteNumber]);
 
   return (

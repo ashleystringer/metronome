@@ -35,6 +35,7 @@ export default function TimeSignature({ setNoteValue, setNoteNumber }) {
                 <button onClick={() => handleNoteNum(6)}>6</button>
                 <button onClick={() => handleNoteNum(7)}>7</button>
                 <button onClick={() => handleNoteNum(8)}>8</button>
+                <button onClick={() => handleNoteNum(9)}>9</button>
                 <button onClick={() => handleNoteNum(12)}>12</button>
             </div>
         </div>
