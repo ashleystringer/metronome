@@ -9,6 +9,7 @@ import { simpleTime, compoundTime } from "../time-signatures";
 export default function Metronome() {
   
   const [selectedBeat, setSelectedBeat] = useState(45);
+  const [selectedNote, setSelectedNote] = useState(1);
   const [isMetrOn, setIsMetrOn] = useState(false);
   const [synth, setSynth] = useState(null);
   const [noteValue, setNoteValue] = useState(4);
@@ -38,6 +39,7 @@ export default function Metronome() {
           console.log(`notePattern.length: ${notePattern.length}`);
           console.log("note = 0");
           note = 0;
+          setSelectedNote(1);
         }
 
         if(notePattern[note] == 1){
@@ -52,6 +54,7 @@ export default function Metronome() {
         }
 
         note++;
+        setSelectedNote(note);
 
       }, 
       bpm);
@@ -73,10 +76,15 @@ export default function Metronome() {
 
   return (
     <div className="metronome">
-      <DisplayTime noteValue={noteValue} noteNumber={noteNumber}/>
+      <DisplayTime noteValue={noteValue} noteNumber={noteNumber} selectedNote={selectedNote}/>
       <BPM selectedBeat={selectedBeat} setSelectedBeat={setSelectedBeat}/>
       <StartMetronome isMetrOn={isMetrOn} setIsMetrOn={setIsMetrOn}/>
-      <TimeSignature setNoteValue={setNoteValue} setNoteNumber={setNoteNumber}/>
+      <TimeSignature 
+        setNoteValue={setNoteValue} 
+        noteValue={noteValue}
+        setNoteNumber={setNoteNumber}
+        noteNumber={noteNumber}
+      />
     </div>
   );
 }
