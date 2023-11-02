@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react'
+import React, { useEffect } from 'react';
+import BeatsVisualizer from "./BeatsVisualizer";
 
 export default function DisplayTime({ noteValue, noteNumber, selectedNote }) {
 
@@ -23,6 +24,7 @@ export default function DisplayTime({ noteValue, noteNumber, selectedNote }) {
             <div className="display-time">
                 {(noteValue !== 0 && noteNumber !== 0 ) ? timeSignature : "-"}
             </div>
+            <BeatsVisualizer noteNumber={noteNumber} selectedNote={selectedNote}/>
         </>
     )
 }
