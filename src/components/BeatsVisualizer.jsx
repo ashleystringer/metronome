@@ -5,8 +5,6 @@ export default function BeatsVisualizer({ noteNumber, selectedNote }) {
     const [beats, setBeats] = useState(new Array(4).fill(0));
     
     useEffect(() => {
-        //console.log(beats);
-        //console.log(noteNumber);
         if(noteNumber){
             setBeats(new Array(noteNumber).fill(0));
         }
@@ -19,7 +17,11 @@ export default function BeatsVisualizer({ noteNumber, selectedNote }) {
     return (
         <div className="beat-group">
             {beats.map((beat, index) => (
-                <span className={ selectedNote == (index + 1) ? "visualized-beat selected" : "visualized-beat"} key={index}></span>
+                <span 
+                    data-testid="beat"
+                    className={selectedNote == (index + 1) ? "visualized-beat selected" : "visualized-beat"} 
+                    key={index}
+                    ></span>
             ))}
         </div>
     )
