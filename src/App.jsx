@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Metronome from "./components/Metronome";
+import BeatCollection from "./components/BeatCollection";
 import "./App.css";
 
 function App() {
@@ -7,6 +8,7 @@ function App() {
   return (
     <>
       <Metronome/>
+      <BeatCollection/>
     </>
   )
 }
