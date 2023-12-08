@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useMetronome } from "../context/MetronomeProvider";
 import * as Tone from "tone";
 import DisplayTime from "./DisplayTime";
 import StartMetronome from "./StartMetronome";
@@ -8,13 +9,25 @@ import { simpleTime, compoundTime } from "../time-signatures";
 
 export default function Metronome() {
   
-  const [selectedBeat, setSelectedBeat] = useState(45);
-  const [selectedNote, setSelectedNote] = useState(1);
+  
+  const { 
+    selectedBeat, 
+    setSelectedNote, 
+    noteValue, 
+    noteNumber, 
+    notePattern,
+    setNotePattern 
+  } = useMetronome();
+  
+
   const [isMetrOn, setIsMetrOn] = useState(false);
   const [synth, setSynth] = useState(null);
+
+  /*const [selectedBeat, setSelectedBeat] = useState(45);
+  const [selectedNote, setSelectedNote] = useState(1);
   const [noteValue, setNoteValue] = useState(4);
   const [noteNumber, setNoteNumber] = useState(4);
-  const [notePattern, setNotePattern] = useState(simpleTime(4));
+  const [notePattern, setNotePattern] = useState(simpleTime(4));*/
 
   useEffect(() => {
     setSynth(new Tone.MembraneSynth().toDestination());
@@ -54,7 +67,7 @@ export default function Metronome() {
           - using the number of beats and the time signature, find out how many bars there are for the time signature
           - the audio stops once the bars for the final time time signature are concluded
         */
-       /*
+       
         //const timeSignature = bars[0];
         //const barNumber = bars[1];
 
@@ -82,7 +95,9 @@ export default function Metronome() {
         if(note == notePattern.length){
           barNumber++;
         }
-       */
+       
+
+        setIsMetrOn(false); //once the bars are concluded
       }
     }
   }
@@ -142,15 +157,10 @@ export default function Metronome() {
 
   return (
     <div className="metronome">
-      <DisplayTime noteValue={noteValue} noteNumber={noteNumber} selectedNote={selectedNote}/>
-      <BPM selectedBeat={selectedBeat} setSelectedBeat={setSelectedBeat}/>
+      <DisplayTime/>
+      <BPM/>
       <StartMetronome isMetrOn={isMetrOn} setIsMetrOn={setIsMetrOn}/>
-      <TimeSignature 
-        setNoteValue={setNoteValue} 
-        noteValue={noteValue}
-        setNoteNumber={setNoteNumber}
-        noteNumber={noteNumber}
-      />
+      <TimeSignature/>
     </div>
   );
 }

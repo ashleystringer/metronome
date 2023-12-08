@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react'
+import { useMetronome } from '../context/MetronomeProvider';
 
-export default function TimeSignature({ 
-        setNoteValue,
-        noteValue, 
-        setNoteNumber,
-        noteNumber
-    }) {
+export default function TimeSignature() {
+
+    const { setNoteValue, noteValue, setNoteNumber, noteNumber } = useMetronome();
 
     useEffect(() => {
         console.log(`noteValue: ${noteValue}`);

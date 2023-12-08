@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+import { useMetronome } from "../context/MetronomeProvider";
 
-export default function BPM({ selectedBeat, setSelectedBeat }) {
+export default function BPM() {
+
+  const { selectedBeat, setSelectedBeat } = useMetronome();
 
   function onChange(e){
       setSelectedBeat(e.target.valueAsNumber);

@@ -1,6 +1,18 @@
 import React, { useRef } from 'react'
 
 export default function BeatCollection() {
+
+  /*
+  - selectedBeat
+  */
+
+  /*
+  - allow BeatCollection to set the "mode" of the metronome
+  - This allows the creation of the collection
+  - The collection as it stands can be visualized as a horizontally scrollable list
+  - Colors can be assigned to each time signature/set of bars
+  */
+
   const scrollContainerRef = useRef(null);
 
   const handleScrollLeft = () => {
