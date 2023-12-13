@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 
-export default function BPM({ selectedBeat, setSelectedBeat }) {
+export default function BPM({ selectedTempo, setSelectedTempo }) {
 
   function onChange(e){
-      setSelectedBeat(e.target.valueAsNumber);
+      setSelectedTempo(e.target.valueAsNumber);
   }
 
-  function decreaseBeat(){
-    setSelectedBeat(prev => {
+  function decreaseTempo(){
+    setSelectedTempo(prev => {
       if(prev > 30){
         return prev - 1;
       }
@@ -15,8 +15,8 @@ export default function BPM({ selectedBeat, setSelectedBeat }) {
     });
   }
 
-  function increaseBeat(){
-    setSelectedBeat(prev => {
+  function increaseTempo(){
+    setSelectedTempo(prev => {
       if(prev < 244){
         return prev + 1;
       }
@@ -26,18 +26,18 @@ export default function BPM({ selectedBeat, setSelectedBeat }) {
 
   return (
     <div className="beat-range">
-      <button onClick={decreaseBeat}>-</button>
+      <button onClick={decreaseTempo}>-</button>
       <input 
         type="range" 
         min="30" 
         max="244" 
         step="1" 
-        value={selectedBeat}
+        value={selectedTempo}
         onChange={onChange}
       />
-      <button onClick={increaseBeat}>+</button>
+      <button onClick={increaseTempo}>+</button>
       <br/>
-      <div className="bpm">{selectedBeat} BPM</div>
+      <div className="bpm">{selectedTempo} BPM</div>
     </div>
   );
 }

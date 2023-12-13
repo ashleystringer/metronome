@@ -28,16 +28,6 @@ export default function TimeSignature({
         
     }
 
-    const selectedNoteValue = (selectedNote) => {
-        if(noteValue === selectedNote) return "btn selected";
-        return "btn";
-    }
-
-    const selectedNoteNumber = (selectedNote) => {
-        if(noteNumber === selectedNote) return "btn selected";
-        return "btn";
-    }
-
     return (
         <div className="time-signature">
             Note Value
