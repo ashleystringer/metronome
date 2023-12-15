@@ -1,20 +1,32 @@
 import React, { useState, useEffect } from "react";
+import { useMetronome } from "../../contexts/MetronomeProvider";
 import * as Tone from "tone";
 import DisplayTime from "./DisplayTime";
 import StartMetronome from "./StartMetronome";
 import BPM from "./BPM";
 import TimeSignature from "./TimeSignature";
-import { simpleTime, compoundTime } from "../time-signatures";
+import { simpleTime, compoundTime } from "../../time-signatures";
 
 export default function Metronome() {
   
-  const [selectedTempo, setSelectedTempo] = useState(45);
+  /*const [selectedTempo, setSelectedTempo] = useState(45);
   const [selectedNote, setSelectedNote] = useState(1);
-  const [isMetrOn, setIsMetrOn] = useState(false);
-  const [synth, setSynth] = useState(null);
   const [noteValue, setNoteValue] = useState(4);
   const [noteNumber, setNoteNumber] = useState(4);
-  const [notePattern, setNotePattern] = useState(simpleTime(4));
+  const [notePattern, setNotePattern] = useState(simpleTime(4));*/
+
+  const [isMetrOn, setIsMetrOn] = useState(false);
+  const [synth, setSynth] = useState(null);
+
+  const {
+    selectedTempo,
+    setSelectedNote,
+    noteValue,
+    noteNumber,
+    notePattern,
+    setNotePattern
+  } = useMetronome();
+  
 
   useEffect(() => {
     setSynth(new Tone.MembraneSynth().toDestination());
@@ -76,15 +88,10 @@ export default function Metronome() {
 
   return (
     <div className="metronome">
-      <DisplayTime noteValue={noteValue} noteNumber={noteNumber} selectedNote={selectedNote}/>
-      <BPM selectedTempo={selectedTempo} setSelectedTempo={setSelectedTempo}/>
+      <DisplayTime/>
+      <BPM/>
       <StartMetronome isMetrOn={isMetrOn} setIsMetrOn={setIsMetrOn}/>
-      <TimeSignature 
-        setNoteValue={setNoteValue} 
-        noteValue={noteValue}
-        setNoteNumber={setNoteNumber}
-        noteNumber={noteNumber}
-      />
+      <TimeSignature/>
     </div>
   );
 }

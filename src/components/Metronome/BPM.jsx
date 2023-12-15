@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+import { useMetronome } from "../../contexts/MetronomeProvider";
 
-export default function BPM({ selectedTempo, setSelectedTempo }) {
+export default function BPM() {
+
+  const { selectedTempo, setSelectedTempo } = useMetronome();
 
   function onChange(e){
       setSelectedTempo(e.target.valueAsNumber);

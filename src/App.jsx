@@ -1,13 +1,20 @@
 import { useState } from 'react';
-import Metronome from "./components/Metronome";
+import { MetronomeProvider } from "./contexts/MetronomeProvider";
+import { BarSequenceProvider } from "./contexts/BarSequenceProvider";
+import Metronome from "./components/Metronome/Metronome";
+import CreateBarSequence from './components/CustomBarSequence/CreateBarSequence';
+
 import "./App.css";
 
 function App() {
 
   return (
-    <>
-      <Metronome/>
-    </>
+    <MetronomeProvider>
+      <BarSequenceProvider>
+          <Metronome/>
+          <CreateBarSequence/>
+      </BarSequenceProvider>
+    </MetronomeProvider>
   )
 }
 

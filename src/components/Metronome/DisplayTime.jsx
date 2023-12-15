@@ -1,7 +1,10 @@
 import React, { useEffect } from 'react';
+import { useMetronome } from "../../contexts/MetronomeProvider";
 import BeatsVisualizer from "./BeatsVisualizer";
 
-export default function DisplayTime({ noteValue, noteNumber, selectedNote }) {
+export default function DisplayTime() {
+
+    const { noteValue, noteNumber, selectedNote } = useMetronome();
 
     useEffect(() => {
         console.log(`selectedNote: ${selectedNote}`);
