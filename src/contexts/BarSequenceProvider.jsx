@@ -46,6 +46,7 @@ export const BarSequenceProvider = ({ children }) => {
     }
 
     const value = {
+        customBarPattern,
         addToCustomBarPattern,
         updateBarPattern,
         removeBarPattern,

@@ -4,13 +4,17 @@ import { useBarSequence } from "../../contexts/BarSequenceProvider";
 
 export default function CreateBarSequence() {
 
-  const { electedTempo, noteValue, noteNumber } = useMetronome();
+  const { selectedTempo, noteValue, noteNumber, mode } = useMetronome();
   const { addToCustomBarPattern } = useBarSequence();
  
+  /*
+  
+  */
+
   return (
     <>
       <div>CreateBarSequence</div>
-      <button onClick={ addToCustomBarPattern }>Add Bar Sequence</button>
+      <button onClick={ addToCustomBarPattern }>Add Bar Sequence</button>   
     </>
-  )
+  );
 }

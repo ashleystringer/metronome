@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { MetronomeProvider } from "./contexts/MetronomeProvider";
 import { BarSequenceProvider } from "./contexts/BarSequenceProvider";
 import Metronome from "./components/Metronome/Metronome";
-import CreateBarSequence from './components/CustomBarSequence/CreateBarSequence';
+import CustomBarSequence from './components/CustomBarSequence/CustomBarSequence';
 
 import "./App.css";
 
@@ -12,7 +12,7 @@ function App() {
     <MetronomeProvider>
       <BarSequenceProvider>
           <Metronome/>
-          <CreateBarSequence/>
+          <CustomBarSequence/>
       </BarSequenceProvider>
     </MetronomeProvider>
   )

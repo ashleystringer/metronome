@@ -8,12 +8,6 @@ import TimeSignature from "./TimeSignature";
 import { simpleTime, compoundTime } from "../../time-signatures";
 
 export default function Metronome() {
-  
-  /*const [selectedTempo, setSelectedTempo] = useState(45);
-  const [selectedNote, setSelectedNote] = useState(1);
-  const [noteValue, setNoteValue] = useState(4);
-  const [noteNumber, setNoteNumber] = useState(4);
-  const [notePattern, setNotePattern] = useState(simpleTime(4));*/
 
   const [isMetrOn, setIsMetrOn] = useState(false);
   const [synth, setSynth] = useState(null);
@@ -24,7 +18,8 @@ export default function Metronome() {
     noteValue,
     noteNumber,
     notePattern,
-    setNotePattern
+    setNotePattern,
+    mode
   } = useMetronome();
   
 
