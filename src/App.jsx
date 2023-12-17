@@ -8,11 +8,17 @@ import "./App.css";
 
 function App() {
 
+  const [isCustomBarSequenceHidden, setIsCustomBarSequenceHidden] = useState(true);
+
+  function toggleButton(){
+    setIsCustomBarSequenceHidden(prev => !prev);
+  }
+
   return (
     <MetronomeProvider>
       <BarSequenceProvider>
           <Metronome/>
-          <CustomBarSequence/>
+          { (isCustomBarSequenceHidden) ? (<button onClick={toggleButton}>Customize Bar Sequence</button>) : (<CustomBarSequence/>)}
       </BarSequenceProvider>
     </MetronomeProvider>
   )

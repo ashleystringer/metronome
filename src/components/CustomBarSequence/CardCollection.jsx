@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import "./CardCollection.css";
 import { useBarSequence } from "../../contexts/BarSequenceProvider";
 import BarSequenceCard from "./BarSequenceCard";
 
@@ -21,15 +22,15 @@ export default function CardCollection() {
   };
 
   return (
-    <div>
-      <button onClick={handleScrollLeft}>Scroll Left</button>
-      <div ref={scrollContainerRef} style={{ overflowX: 'auto', whiteSpace: 'nowrap' }}>
+    <div className="card-collection">
+      <button onClick={handleScrollLeft} className="scroll-btn">Scroll Left</button>
+      <div ref={scrollContainerRef} className="scroll-container">
         { (customBarPattern.length !== 0) ? (customBarPattern.map((BarPattern, index) => {
             return (<BarSequenceCard key={index} BarSequenceData={BarPattern}/>)
           })) : "No bar sequences available"
         }
       </div>
-      <button onClick={handleScrollRight}>Scroll Right</button>
+      <button onClick={handleScrollRight} className="scroll-btn">Scroll Right</button>
     </div>
   );
 }

@@ -63,7 +63,12 @@ body {
     width: 90%;
 }
 
+.beat-range .bpm-slider-btn {
+    cursor: pointer;
+}
+
 .play-btn {
+    cursor: pointer;
     background-color: white;
     border: 2.5px solid rgb(179, 179, 179);
     border-radius: 2%;
@@ -76,6 +81,7 @@ body {
 }
 
 .time-signature .btn {
+    cursor: pointer;
     border-radius: 50%;
     border: none;
     height: 1.8rem;

@@ -1,0 +1,19 @@
+.card-collection {
+    border: 1px solid #e0e0e0;
+    margin-top: 2.3rem;
+    height: 8rem;
+    display: flex;
+    align-items: center;
+}
+
+.scroll-btn {
+
+}
+
+.scroll-container {
+    flex-grow: 1;
+    overflow-x: auto;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+}

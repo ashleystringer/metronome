@@ -29,7 +29,7 @@ export default function BPM() {
 
   return (
     <div className="beat-range">
-      <button onClick={decreaseTempo}>-</button>
+      <button onClick={decreaseTempo} className="bpm-slider-btn">-</button>
       <input 
         type="range" 
         min="30" 
@@ -38,9 +38,9 @@ export default function BPM() {
         value={selectedTempo}
         onChange={onChange}
       />
-      <button onClick={increaseTempo}>+</button>
+      <button onClick={increaseTempo} className="bpm-slider-btn">+</button>
       <br/>
-      <div className="bpm">{selectedTempo} BPM</div>
+      <div className="bpm" >{selectedTempo} BPM</div>
     </div>
   );
 }
