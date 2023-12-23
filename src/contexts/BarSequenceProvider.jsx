@@ -9,7 +9,7 @@ export function useBarSequence(){
 
 export const BarSequenceProvider = ({ children }) => {
 
-    const { noteNumber, noteValue, selectedTempo } = useMetronome();
+    const { noteNumber, noteValue, selectedTempo, createNotePattern } = useMetronome();
     const [customBarPattern, setCustomBarPattern] = useState([]);
 
     useEffect(() => {
@@ -18,7 +18,8 @@ export const BarSequenceProvider = ({ children }) => {
     }, [customBarPattern]);
 
     const addToCustomBarPattern = () => {
-        const newBarPattern = { noteNumber, noteValue, selectedTempo };
+        const newNotePattern = createNotePattern(noteNumber, noteValue);
+        const newBarPattern = { noteNumber, noteValue, selectedTempo, newNotePattern};
         setCustomBarPattern(prevBarPatterns => {
           if(prevBarPatterns) return [...prevBarPatterns, newBarPattern];
           return [newBarPattern];

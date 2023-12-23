@@ -17,6 +17,14 @@ export const MetronomeProvider = ({ children }) => {
   const [notePattern, setNotePattern] = useState(simpleTime(4));
   const [mode, setMode] = useState("default");
 
+  function createNotePattern(noteNumber, noteValue){
+    console.log(`noteValue: ${noteValue}, noteNumber: ${noteNumber}`);
+    if(noteValue == 4){
+      return simpleTime(noteNumber);
+    }else if(noteValue == 8){
+      return compoundTime(noteNumber);
+    }
+  }
 
   const value = {
     selectedTempo,
@@ -30,7 +38,8 @@ export const MetronomeProvider = ({ children }) => {
     notePattern,
     setNotePattern,
     mode,
-    setMode
+    setMode,
+    createNotePattern
   }
 
   return (
