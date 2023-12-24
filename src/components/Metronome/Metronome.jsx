@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useMetronome } from "../../contexts/MetronomeProvider";
+import { useBarSequence } from "../../contexts/BarSequenceProvider";
 import * as Tone from "tone";
 import DisplayTime from "./DisplayTime";
 import StartMetronome from "./StartMetronome";
@@ -22,7 +23,9 @@ export default function Metronome() {
     mode
   } = useMetronome();
 
-  console.log(`mode: ${mode}`);
+  const {
+    customBarPattern
+  } = useBarSequence();
 
 
   useEffect(() => {
@@ -30,8 +33,8 @@ export default function Metronome() {
   }, []);
 
 
-  const modes = {
-    normal: {
+  const playModes = {
+    default: {
       tick: () => {
         console.log(notePattern);
 
@@ -69,31 +72,72 @@ export default function Metronome() {
           return interval;
       }
     },
-    customSequence: {
+    custom: {
       tick: () => {
-        /*
+        let note = 0;
+        let barTracker = 0;
+        let patternIndex = 0;
 
-        */
+        let { barNotePattern, numberOfBars } = customBarPattern[patternIndex];
+
+        const bpm = 60000 / parseInt(selectedTempo);
+    
+        const noteValueStr = noteValue.toString() + "n"; 
+    
+          const interval = setInterval(() => {
+
+            console.log(barNotePattern);
+   
+              if(patternIndex == customBarPattern.length){
+                console.log("patternIndex == customBarPattern.length && barTracker == numberOfBars");
+                setIsMetrOn(false);
+                return;
+              }
+              
+              if(note == barNotePattern.length){
+                note = 0;
+                setSelectedNote(1);
+                barTracker++;
+              }
+      
+              if(barTracker == numberOfBars){
+                barTracker = 0;
+                patternIndex++;
+              }
+              
+        
+                if(barNotePattern[note] == 1){
+                  synth.triggerAttackRelease("C3", noteValueStr);
+                }else if(barNotePattern[note] == 2){
+                  synth.triggerAttackRelease("C2", noteValueStr);
+                }else{
+                  synth.triggerAttackRelease("C4", noteValueStr);
+                }
+        
+                note++;
+                console.log(`note: ${note}`);
+                setSelectedNote(note);
+
+                ({ barNotePattern, numberOfBars } = customBarPattern[patternIndex]);
+          }, 
+          bpm);
+    
+          return interval;
       }
     }
   }
 
   useEffect(() => {
 
-    /*
-    - Find a way to run through all of the variables every time a certain number of bars in completed.
-    */
-
     if(isMetrOn){
-      const interval = modes.normal.tick();
+      const interval = playModes[mode].tick();
       return () => clearInterval(interval);
     }
 
-  }, [isMetrOn, selectedTempo, noteNumber, notePattern]);
+  }, [isMetrOn, selectedTempo, noteNumber, notePattern, mode]);
 
 
   useEffect(() => {
-    console.log(`noteValue: ${noteValue}, noteNumber: ${noteNumber}`);
     if(noteValue == 4){
       setNotePattern(simpleTime(noteNumber));
     }else if(noteValue == 8){

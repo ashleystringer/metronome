@@ -6,17 +6,22 @@ import CardCollection from "./CardCollection";
 
 export default function CustomBarSequence() {
 
-  const { mode } = useMetronome();
+  const { mode, setMode } = useMetronome();
   
+  function toggleMode(){
+    setMode(prev =>{
+      if(prev == "default") return "custom";
+      return "default";
+    });
+    console.log(`mode: ${mode}`);
+  }
 
   return (
     <>
-      {( mode === "" ) ? <div>Default</div> : (
-        <>
-          <CardCollection/>
-          <CreateBarSequence/>
-        </>
-      )} 
+      <CardCollection/>
+      <CreateBarSequence/>
+      <br/>
+      <button onClick={toggleMode}>{mode == "default" ? "Enter Custom Mode" : "Enter Default Mode"}</button>
     </>
   )
 }
