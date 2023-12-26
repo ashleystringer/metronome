@@ -19,7 +19,7 @@ export const BarSequenceProvider = ({ children }) => {
 
     const addToCustomBarPattern = () => {
         const barNotePattern = createNotePattern(noteNumber, noteValue);
-        const newBarPattern = { noteNumber, noteValue, selectedTempo, barNotePattern, numberOfBars: 2 };
+        const newBarPattern = { barNoteNumber: noteNumber, barNoteValue: noteValue, selectedTempo, barNotePattern, numberOfBars: 2 };
         setCustomBarPattern(prevBarPatterns => {
           if(prevBarPatterns) return [...prevBarPatterns, newBarPattern];
           return [newBarPattern];
