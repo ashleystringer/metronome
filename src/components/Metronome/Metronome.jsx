@@ -12,7 +12,13 @@ export default function Metronome() {
 
   const [isMetrOn, setIsMetrOn] = useState(false);
   const [synth, setSynth] = useState(null);
+
+
   const customPatternIndexRef = useRef(0);
+  const barTrackerRef = useRef(0);
+  const barNoteNumberRef = useRef(0);
+  const barNoteValueRef = useRef(0);
+  const noteRef = useRef(0);
 
 
   const {
@@ -87,6 +93,7 @@ export default function Metronome() {
         setNoteValue(barNoteValue);
         setNoteNumber(barNoteNumber);
 
+
         const bpm = 60000 / parseInt(selectedTempo);
     
         const noteValueStr = noteValue.toString() + "n"; 
@@ -95,37 +102,54 @@ export default function Metronome() {
 
             console.log(barNotePattern);
               
-              if(note == barNotePattern.length){
-                note = 0;
+              if(noteRef.current == barNotePattern.length){ //barNotePattern.length
+                noteRef.current = 0;
                 setSelectedNote(1);
-                barTracker++;
+                barTrackerRef.current++;
               }
       
-              if(barTracker == numberOfBars && customPatternIndexRef.current < customBarPattern.length){
-                barTracker = 0;
+              if(barTrackerRef.current == numberOfBars && customPatternIndexRef.current < customBarPattern.length){ //customBarPattern.length
+                barTrackerRef.current = 0;
                 customPatternIndexRef.current++;
-                ({ barNoteNumber, barNoteValue } = customBarPattern[customPatternIndexRef.current]);
+                console.log(`customPatternIndexRef.current - 1: ${customPatternIndexRef.current - 1}`);
+                console.log(customBarPattern);
+                ({ barNoteNumber, barNoteValue } = customBarPattern[customPatternIndexRef.current - 1]);
+                //customPatternIndexRef.current++;
                 setNoteValue(barNoteValue);
+                console.log(`barNoteValue: ${barNoteValue}`);
                 setNoteNumber(barNoteNumber);
+                console.log(`barNoteNumber: ${barNoteNumber}`);
               }
-              
-        
-                if(barNotePattern[note] == 1){
+
+              //noteRef.current++;
+              /*console.log(noteRef.current);
+              if(noteRef.current == 4){
+                console.log("noteRef.current == 4");
+                setIsMetrOn(false);
+                noteRef.current = 0;
+              }*/
+
+              //setSelectedNote(noteRef.current);
+
+                if(barNotePattern[noteRef.current] == 1){
+                  console.log("note == 1");
                   synth.triggerAttackRelease("C3", noteValueStr);
-                }else if(barNotePattern[note] == 2){
+                }else if(barNotePattern[noteRef.current] == 2){
+                  console.log("note == 2");
                   synth.triggerAttackRelease("C2", noteValueStr);
                 }else{
+                  console.log("note == 3");
                   synth.triggerAttackRelease("C4", noteValueStr);
                 }
-        
-                note++;
-                setSelectedNote(note);
 
-                if(customPatternIndexRef.current == customBarPattern.length){
+                noteRef.current++;
+                setSelectedNote(noteRef.current);
+
+                if(customPatternIndexRef.current == customBarPattern.length){ //customBarPattern.length
                   console.log("patternIndex == customBarPattern.length");
                   setIsMetrOn(false);
                   customPatternIndexRef.current = 0;
-                  return;
+                  //return;
                 }else{
                   ({ barNotePattern, numberOfBars } = customBarPattern[customPatternIndexRef.current]);
                 }
