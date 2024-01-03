@@ -16,8 +16,6 @@ export default function Metronome() {
 
   const customPatternIndexRef = useRef(0);
   const barTrackerRef = useRef(0);
-  const barNoteNumberRef = useRef(0);
-  const barNoteValueRef = useRef(0);
   const noteRef = useRef(0);
 
 
@@ -84,10 +82,6 @@ export default function Metronome() {
     },
     custom: {
       tick: () => {
-        let note = 0;
-        let barTracker = 0;
-
-
         let { barNotePattern, numberOfBars, barNoteNumber, barNoteValue } = customBarPattern[customPatternIndexRef.current];
 
         setNoteValue(barNoteValue);
@@ -102,34 +96,35 @@ export default function Metronome() {
 
             console.log(barNotePattern);
               
-              if(noteRef.current == barNotePattern.length){ //barNotePattern.length
+              if(noteRef.current == barNotePattern.length){
                 noteRef.current = 0;
                 setSelectedNote(1);
                 barTrackerRef.current++;
               }
       
-              if(barTrackerRef.current == numberOfBars && customPatternIndexRef.current < customBarPattern.length){ //customBarPattern.length
+              if(barTrackerRef.current == numberOfBars && customPatternIndexRef.current < customBarPattern.length){
                 barTrackerRef.current = 0;
                 customPatternIndexRef.current++;
                 console.log(`customPatternIndexRef.current - 1: ${customPatternIndexRef.current - 1}`);
                 console.log(customBarPattern);
-                ({ barNoteNumber, barNoteValue } = customBarPattern[customPatternIndexRef.current - 1]);
-                //customPatternIndexRef.current++;
-                setNoteValue(barNoteValue);
-                console.log(`barNoteValue: ${barNoteValue}`);
-                setNoteNumber(barNoteNumber);
-                console.log(`barNoteNumber: ${barNoteNumber}`);
+                if(customPatternIndexRef.current < customBarPattern.length){
+                  ({ barNoteNumber, barNoteValue } = customBarPattern[customPatternIndexRef.current]); //MISMATCH
+                  setNoteValue(barNoteValue);
+                  console.log(`barNoteValue: ${barNoteValue}`);
+                  setNoteNumber(barNoteNumber);
+                  console.log(`barNoteNumber: ${barNoteNumber}`);
+                }
               }
 
-              //noteRef.current++;
-              /*console.log(noteRef.current);
-              if(noteRef.current == 4){
-                console.log("noteRef.current == 4");
+              if(customPatternIndexRef.current == customBarPattern.length){
+                //This is happening after the audio is triggered.
+                console.log("patternIndex == customBarPattern.length");
                 setIsMetrOn(false);
-                noteRef.current = 0;
-              }*/
-
-              //setSelectedNote(noteRef.current);
+                customPatternIndexRef.current = 0;
+                return;
+              }else{
+                ({ barNotePattern, numberOfBars } = customBarPattern[customPatternIndexRef.current]); //MISMATCH
+              }
 
                 if(barNotePattern[noteRef.current] == 1){
                   console.log("note == 1");
@@ -144,15 +139,6 @@ export default function Metronome() {
 
                 noteRef.current++;
                 setSelectedNote(noteRef.current);
-
-                if(customPatternIndexRef.current == customBarPattern.length){ //customBarPattern.length
-                  console.log("patternIndex == customBarPattern.length");
-                  setIsMetrOn(false);
-                  customPatternIndexRef.current = 0;
-                  //return;
-                }else{
-                  ({ barNotePattern, numberOfBars } = customBarPattern[customPatternIndexRef.current]);
-                }
           }, 
           bpm);
     
