@@ -18,7 +18,6 @@ export default function Metronome() {
   const barTrackerRef = useRef(0);
   const noteRef = useRef(0);
 
-
   const {
     selectedTempo,
     setSelectedNote,
@@ -40,40 +39,32 @@ export default function Metronome() {
     setSynth(new Tone.MembraneSynth().toDestination());
   }, []);
 
-
   const playModes = {
     default: {
       tick: () => {
         console.log(notePattern);
 
         const bpm = 60000 / parseInt(selectedTempo);
-    
-        let note = 0;
-    
+        
         const noteValueStr = noteValue.toString() + "n"; 
     
           const interval = setInterval(() => {
             
-            if(note == notePattern.length){
-              console.log(`notePattern.length: ${notePattern.length}`);
-              console.log("note = 0");
-              note = 0;
+            if(noteRef.current == notePattern.length){
+              noteRef.current = 0;
               setSelectedNote(1);
             }
     
-            if(notePattern[note] == 1){
-              console.log("note == 1");
+            if(notePattern[noteRef.current] == 1){
               synth.triggerAttackRelease("C3", noteValueStr);
-            }else if(notePattern[note] == 2){
-              console.log("note == 2");
+            }else if(notePattern[noteRef.current] == 2){
               synth.triggerAttackRelease("C2", noteValueStr);
             }else{
-              console.log("note == 3");
               synth.triggerAttackRelease("C4", noteValueStr);
             }
     
-            note++;
-            setSelectedNote(note);
+            noteRef.current++;
+            setSelectedNote(noteRef.current);
           }, 
           bpm);
     
@@ -82,6 +73,8 @@ export default function Metronome() {
     },
     custom: {
       tick: () => {
+        if (customBarPattern.length == 0) return; 
+
         let { barNotePattern, numberOfBars, barNoteNumber, barNoteValue } = customBarPattern[customPatternIndexRef.current];
 
         setNoteValue(barNoteValue);
@@ -105,40 +98,32 @@ export default function Metronome() {
               if(barTrackerRef.current == numberOfBars && customPatternIndexRef.current < customBarPattern.length){
                 barTrackerRef.current = 0;
                 customPatternIndexRef.current++;
-                console.log(`customPatternIndexRef.current - 1: ${customPatternIndexRef.current - 1}`);
-                console.log(customBarPattern);
                 if(customPatternIndexRef.current < customBarPattern.length){
-                  ({ barNoteNumber, barNoteValue } = customBarPattern[customPatternIndexRef.current]); //MISMATCH
+                  ({ barNoteNumber, barNoteValue } = customBarPattern[customPatternIndexRef.current]);
                   setNoteValue(barNoteValue);
-                  console.log(`barNoteValue: ${barNoteValue}`);
                   setNoteNumber(barNoteNumber);
-                  console.log(`barNoteNumber: ${barNoteNumber}`);
                 }
               }
 
               if(customPatternIndexRef.current == customBarPattern.length){
                 //This is happening after the audio is triggered.
-                console.log("patternIndex == customBarPattern.length");
                 setIsMetrOn(false);
                 customPatternIndexRef.current = 0;
                 return;
               }else{
-                ({ barNotePattern, numberOfBars } = customBarPattern[customPatternIndexRef.current]); //MISMATCH
+                ({ barNotePattern, numberOfBars } = customBarPattern[customPatternIndexRef.current]);
               }
 
-                if(barNotePattern[noteRef.current] == 1){
-                  console.log("note == 1");
-                  synth.triggerAttackRelease("C3", noteValueStr);
-                }else if(barNotePattern[noteRef.current] == 2){
-                  console.log("note == 2");
-                  synth.triggerAttackRelease("C2", noteValueStr);
-                }else{
-                  console.log("note == 3");
-                  synth.triggerAttackRelease("C4", noteValueStr);
-                }
+              if(barNotePattern[noteRef.current] == 1){
+                synth.triggerAttackRelease("C3", noteValueStr);
+              }else if(barNotePattern[noteRef.current] == 2){
+                synth.triggerAttackRelease("C2", noteValueStr);
+              }else{
+                synth.triggerAttackRelease("C4", noteValueStr);
+              }
 
-                noteRef.current++;
-                setSelectedNote(noteRef.current);
+              noteRef.current++;
+              setSelectedNote(noteRef.current);
           }, 
           bpm);
     
@@ -156,6 +141,9 @@ export default function Metronome() {
 
   }, [isMetrOn, selectedTempo, noteNumber, notePattern, mode]);
 
+  useEffect(() => {
+    noteRef.current = 0;
+  }, [mode]);
 
   useEffect(() => {
     if(noteValue == 4){

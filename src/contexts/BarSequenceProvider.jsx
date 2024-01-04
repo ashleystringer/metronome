@@ -18,6 +18,7 @@ export const BarSequenceProvider = ({ children }) => {
     }, [customBarPattern]);
 
     const addToCustomBarPattern = () => {
+        //Need to create an ID for each bar pattern
         const barNotePattern = createNotePattern(noteNumber, noteValue);
         const newBarPattern = { barNoteNumber: noteNumber, barNoteValue: noteValue, selectedTempo, barNotePattern, numberOfBars: 2 };
         setCustomBarPattern(prevBarPatterns => {
@@ -27,6 +28,7 @@ export const BarSequenceProvider = ({ children }) => {
       };
 
     const updateBarPattern = (bar) => {
+        //Need to alter the contet of the bar pattern
         setCustomBarPattern(barPatterns => {
             const updatedBarPatterns = barPatterns.map(barPattern => {
                 if(barPattern === bar) return bar;
@@ -36,6 +38,7 @@ export const BarSequenceProvider = ({ children }) => {
     }
     
     const removeBarPattern = (bar) => {
+        //Need to adjust the IDs for the bar patterns
         setCustomBarPattern(barPatterns => {
             const updatedBarPatterns = barPatterns.filter(barPattern => bar !== barPattern);
             return updatedBarPatterns;

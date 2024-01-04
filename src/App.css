@@ -58,6 +58,7 @@ body {
     text-align: center;
 }
 .beat-range input[type="range"] {
+    cursor: pointer;
     margin-left: .2rem;
     margin-right: .2rem;
     width: 90%;
