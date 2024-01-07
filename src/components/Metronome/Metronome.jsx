@@ -20,6 +20,7 @@ export default function Metronome() {
 
   const {
     selectedTempo,
+    setSelectedTempo,
     setSelectedNote,
     noteValue,
     setNoteValue,
@@ -75,13 +76,14 @@ export default function Metronome() {
       tick: () => {
         if (customBarPattern.length == 0) return; 
 
-        let { barNotePattern, numberOfBars, barNoteNumber, barNoteValue } = customBarPattern[customPatternIndexRef.current];
+        let { barNotePattern, numberOfBars, barNoteNumber, barNoteValue, tempo } = customBarPattern[customPatternIndexRef.current];
 
         setNoteValue(barNoteValue);
         setNoteNumber(barNoteNumber);
+        setSelectedTempo(tempo);
 
 
-        const bpm = 60000 / parseInt(selectedTempo);
+        let bpm = 60000 / parseInt(tempo);
     
         const noteValueStr = noteValue.toString() + "n"; 
     
@@ -99,9 +101,11 @@ export default function Metronome() {
                 barTrackerRef.current = 0;
                 customPatternIndexRef.current++;
                 if(customPatternIndexRef.current < customBarPattern.length){
-                  ({ barNoteNumber, barNoteValue } = customBarPattern[customPatternIndexRef.current]);
+                  ({ barNoteNumber, barNoteValue, tempo } = customBarPattern[customPatternIndexRef.current]);
                   setNoteValue(barNoteValue);
                   setNoteNumber(barNoteNumber);
+                  setSelectedTempo(tempo);
+                  bpm = 600 / parseInt(tempo);
                 }
               }
 
@@ -143,6 +147,7 @@ export default function Metronome() {
 
   useEffect(() => {
     noteRef.current = 0;
+    console.log("mode changed");
   }, [mode]);
 
   useEffect(() => {

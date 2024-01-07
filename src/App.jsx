@@ -1,24 +1,18 @@
-import { useState } from 'react';
 import { MetronomeProvider } from "./contexts/MetronomeProvider";
 import { BarSequenceProvider } from "./contexts/BarSequenceProvider";
+import ModeSelector from './components/Metronome/ModeSelector';
 import Metronome from "./components/Metronome/Metronome";
-import CustomBarSequence from './components/CustomBarSequence/CustomBarSequence';
+import BarSequenceWrapper from './components/CustomBarSequence/BarSequenceWrapper';
 
 import "./App.css";
 
 function App() {
-
-  const [isCustomBarSequenceHidden, setIsCustomBarSequenceHidden] = useState(true);
-
-  function toggleButton(){
-    setIsCustomBarSequenceHidden(prev => !prev);
-  }
-
   return (
     <MetronomeProvider>
       <BarSequenceProvider>
+          <ModeSelector/>
           <Metronome/>
-          { (isCustomBarSequenceHidden) ? (<button onClick={toggleButton}>Customize Bar Sequence</button>) : (<CustomBarSequence/>)}
+          <BarSequenceWrapper/>
       </BarSequenceProvider>
     </MetronomeProvider>
   )

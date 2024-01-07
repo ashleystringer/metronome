@@ -6,10 +6,6 @@ export default function CreateBarSequence() {
 
   const { selectedTempo, noteValue, noteNumber, mode } = useMetronome();
   const { addToCustomBarPattern } = useBarSequence();
- 
-  /*
-  
-  */
 
   return (
     <>

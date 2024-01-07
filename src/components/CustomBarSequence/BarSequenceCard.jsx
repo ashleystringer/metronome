@@ -1,13 +1,19 @@
 import React from 'react';
 import "./BarSequenceCard.css";
+import { useBarSequence } from "../../contexts/BarSequenceProvider";
 
 export default function BarSequenceCard({ BarSequenceData }) {
 
-  const { selectedTempo, barNoteValue, barNoteNumber } = BarSequenceData;
+  const { id, tempo, barNoteValue, barNoteNumber } = BarSequenceData;
+  const { deleteBarPattern, updateBarPattern } = useBarSequence();
 
   return (
     <div className="bar-sequence-card">
-      <div>Tempo: {selectedTempo}</div>
+      <div>
+        <button className='delete-btn' onClick={() => deleteBarPattern(id)}>Delete</button>
+        <button className='update-btn'>Update</button>
+      </div>
+      <div>Tempo: {tempo}</div>
       <div>Note value: {barNoteValue}</div>
       <div>Note number: {barNoteNumber}</div>
     </div>

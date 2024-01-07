@@ -1,4 +1,4 @@
-import React, { useState, createContext, useContext, useEffect } from 'react';
+import React, { useState, createContext, useContext, useEffect, useRef } from 'react';
 import { useMetronome } from "../contexts/MetronomeProvider";
 
 export const BarSequenceContext = createContext();
@@ -10,6 +10,7 @@ export function useBarSequence(){
 export const BarSequenceProvider = ({ children }) => {
 
     const { noteNumber, noteValue, selectedTempo, createNotePattern } = useMetronome();
+    const idCounter = useRef(0);
     const [customBarPattern, setCustomBarPattern] = useState([]);
 
     useEffect(() => {
@@ -18,43 +19,48 @@ export const BarSequenceProvider = ({ children }) => {
     }, [customBarPattern]);
 
     const addToCustomBarPattern = () => {
-        //Need to create an ID for each bar pattern
         const barNotePattern = createNotePattern(noteNumber, noteValue);
-        const newBarPattern = { barNoteNumber: noteNumber, barNoteValue: noteValue, selectedTempo, barNotePattern, numberOfBars: 2 };
+        const newBarPattern = { id: idCounter.current, barNoteNumber: noteNumber, barNoteValue: noteValue, tempo: selectedTempo, barNotePattern, numberOfBars: 2 };
         setCustomBarPattern(prevBarPatterns => {
           if(prevBarPatterns) return [...prevBarPatterns, newBarPattern];
           return [newBarPattern];
         }); 
+        idCounter.current++;
       };
 
-    const updateBarPattern = (bar) => {
+    const updateBarPattern = (barID, newBar) => {
         //Need to alter the contet of the bar pattern
         setCustomBarPattern(barPatterns => {
             const updatedBarPatterns = barPatterns.map(barPattern => {
-                if(barPattern === bar) return bar;
+                if(barPatern.id === barID) return newBar;
+                return barPattern;
             });
             return updatedBarPatterns;
         });
+        
     }
     
-    const removeBarPattern = (bar) => {
-        //Need to adjust the IDs for the bar patterns
+    const deleteBarPattern = (barID) => {
         setCustomBarPattern(barPatterns => {
-            const updatedBarPatterns = barPatterns.filter(barPattern => bar !== barPattern);
+            const updatedBarPatterns = barPatterns.filter(bar => bar.id !== barID);
             return updatedBarPatterns;
         });
+
+        if(customBarPattern.length === 1) idCounter.current = 0;
     }
 
-    const removeAllBarPatterns = () =>{
+    const deleteAllBarPatterns = () =>{
         setCustomBarPattern([]);
+
+        idCounter.current = 0;
     }
 
     const value = {
         customBarPattern,
         addToCustomBarPattern,
         updateBarPattern,
-        removeBarPattern,
-        removeAllBarPatterns
+        deleteBarPattern,
+        deleteAllBarPatterns
     };
 
     return (
