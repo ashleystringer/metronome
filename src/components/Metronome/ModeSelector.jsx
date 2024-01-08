@@ -1,3 +1,4 @@
+import "./ModeSelector.css";
 import React from 'react';
 import { useMetronome } from "../../contexts/MetronomeProvider";
 import SequenceGroupSelector from '../CustomBarSequence/SequenceGroupSelector';
@@ -11,16 +12,16 @@ export default function ModeSelector() {
     }
 
   return (
-    <>
+    <div className="mode-selector-container">
         <select value={mode} onChange={handleModeChange}>
-            <option value={"Default"}>
+            <option value={"default"}>
                 Default
             </option>
-            <option value={"Custom"}>
+            <option value={"custom"}>
                 Custom
             </option>
         </select>
-        { (mode === "Custom") ? (<SequenceGroupSelector/>) : ""}
-    </>
+        { (mode === "custom") ? (<SequenceGroupSelector/>) : ""}
+    </div>
   )
 }

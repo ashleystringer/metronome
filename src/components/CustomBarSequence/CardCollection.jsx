@@ -29,6 +29,7 @@ export default function CardCollection() {
             return (<BarSequenceCard key={index} BarSequenceData={BarPattern}/>)
           })) : "No bar sequences available"
         }
+        <button className='add-card-btn'>+</button>
       </div>
       <button onClick={handleScrollRight} className="scroll-btn">Scroll Right</button>
     </div>

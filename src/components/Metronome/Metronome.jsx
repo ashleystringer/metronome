@@ -74,7 +74,10 @@ export default function Metronome() {
     },
     custom: {
       tick: () => {
-        if (customBarPattern.length == 0) return; 
+        if (customBarPattern.length == 0){
+          setIsMetrOn(false)
+          return;
+        }; 
 
         let { barNotePattern, numberOfBars, barNoteNumber, barNoteValue, tempo } = customBarPattern[customPatternIndexRef.current];
 

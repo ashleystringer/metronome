@@ -9,7 +9,6 @@ export default function CreateBarSequence() {
 
   return (
     <>
-      <div>CreateBarSequence</div>
       <button onClick={ addToCustomBarPattern }>Add Bar Sequence</button>   
     </>
   );
