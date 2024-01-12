@@ -1,5 +1,6 @@
 import React, { useState, createContext, useContext, useEffect, useRef } from 'react';
 import { useMetronome } from "../contexts/MetronomeProvider";
+//import { useLocalStorage } from "../hooks/useLocalStorage";
 
 export const BarSequenceContext = createContext();
 

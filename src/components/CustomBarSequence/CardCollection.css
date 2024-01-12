@@ -5,6 +5,7 @@
     width: 80rem;
     display: flex;
     align-items: center;
+    position: relative;
 }
 
 .scroll-btn {
@@ -13,6 +14,7 @@
 
 .scroll-container {
     flex-grow: 1;
+    padding: 0 3.5rem;
     overflow-x: auto;
     white-space: nowrap;
     display: flex;
@@ -21,7 +23,7 @@
 }
 
 .add-card-btn {
-    position: absolute;
+    position: fixed;
     z-index: 100;
     cursor: pointer;
     border-radius: 50%;
@@ -32,7 +34,8 @@
     height: 2.1rem;
     width: 2.1rem;
     padding: .3rem;
-    top: 50%;
-    right: 10px;
-    transform: translateY(-50%);
+    /*top: 50%;*/
+    right: 15%;
+    transform: translateX(-50%);
+    /*transform: translateY(-50%);*/
 }
