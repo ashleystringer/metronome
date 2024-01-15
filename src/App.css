@@ -113,3 +113,19 @@ body {
 .time-signature .container button {
     margin-top: 1.2rem;
 }
+
+@media only screen and (max-width: 760px) {
+    .metronome {
+        position: relative;
+        background-color: rgb(238, 238, 238);
+        margin: auto;
+        margin-top: 2.5rem;
+        padding: .75rem;
+        border: 1px solid rgb(126, 118, 118);
+        border-radius: 1%;
+        height: 28rem;
+        width: 28rem;
+        display: flex;
+        flex-direction: column;
+    }
+}

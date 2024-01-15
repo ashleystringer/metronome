@@ -1,9 +1,18 @@
-- Beats per minute [X]
-- Play [X]
-- Pause [X]
-- The ability to change BPM while playing [X]
-- The ability to change the time signature while playing [X]
-- The ability to "connect" bars of different time signatures 
-- - together for a certain period of time []
-- - Create "rhythms" that are collection of time signatures
-    - - and amount of time those time signatures exist []
+CSS 
+- Should the CSS be spread throughout several files or in one single file?
+- rem and em units versus px
+- best practices for padding
+- best practices for height and width
+
+2021
+- 
+- min-width: 768px
+- min-width: 1080px
+- min-width: 1450px
+
+2022
+- 
+- min-width: 680px
+- min-width: 920px
+- min-width: 1200px
+
