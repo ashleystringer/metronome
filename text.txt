@@ -16,3 +16,10 @@ CSS
 - min-width: 920px
 - min-width: 1200px
 
+- Updating feature requirements: 
+    - Allow the user to update a bar sequence by selecting the metronome buttons
+    - There needs to be a way to change the mode to an update mode [X].
+    - There needs to be a way to make the Time Signature component alter the given bar sequence. 
+    - There needs to be a way for the UpdateCardModal to indicate which bar sequence should be updated.
+    - There needs to be reorganization of the bar sequences. 
+    - There needs to be storage established for the bar sequences.

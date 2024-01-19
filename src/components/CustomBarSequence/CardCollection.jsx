@@ -37,8 +37,8 @@ const { customBarPattern } = useBarSequence();
               />)
           })) : "No bar sequences available"
         }
-        <button className='add-card-btn'>+</button>
       </div>
+      <button className='add-card-btn'>+</button>
       <button onClick={handleScrollRight} className="scroll-btn">Scroll Right</button>
       <UpdateCardModal 
         isModalOpen={isModalOpen} 

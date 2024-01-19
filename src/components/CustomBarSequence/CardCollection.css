@@ -5,6 +5,7 @@
     border: 1px solid rgb(126, 118, 118);
     background-color: rgb(238, 238, 238);
     overflow-y: auto;
+    position: relative;
 }
 
 .scroll-container {
@@ -19,7 +20,8 @@
 }
 
 .add-card-btn {
-    position: fixed;
+    /*position: fixed;*/
+    position: absolute;
     z-index: 100;
     cursor: pointer;
     border-radius: 50%;
@@ -59,7 +61,8 @@
         display: flex;
     }
     .add-card-btn {
-        position: fixed;
+        /*position: fixed;*/
+        position: absolute;
         z-index: 100;
         cursor: pointer;
         border-radius: 50%;
@@ -74,5 +77,19 @@
         right: 15%;
         transform: translateX(-50%);
         /*transform: translateY(-50%);*/
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    .card-collection {
+        height: 28rem;
+        width: 95%;
+        margin: auto;
+        border-radius: 1%;
+        padding: .15rem;
+        border: 1px solid rgb(126, 118, 118);
+        background-color: rgb(238, 238, 238);
+        overflow-y: auto;
+        box-shadow: 1.75px 1.5px 1.5px rgb(57, 54, 54);
     }
 }

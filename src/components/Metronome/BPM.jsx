@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { useMetronome } from "../../contexts/MetronomeProvider";
+import { useBarSequence } from "../../contexts/BarSequenceProvider";
+
 
 export default function BPM() {
 
   const { selectedTempo, setSelectedTempo } = useMetronome();
+  const { isUpdateModeOn } = useBarSequence();
 
   function onChange(e){
       setSelectedTempo(e.target.valueAsNumber);
@@ -16,6 +19,18 @@ export default function BPM() {
       }
       return prev;
     });
+      /*
+        if(isUpdateModeOn){
+          //updateBarPattern();
+        }else{
+          setSelectedTempo(prev => {
+            if(prev > 30){
+              return prev - 1;
+            }
+            return prev;
+          });
+        }
+        */
   }
 
   function increaseTempo(){
@@ -25,6 +40,18 @@ export default function BPM() {
       }
       return prev;
     });
+        /*
+        if(isUpdateModeOn){
+          //updateBarPattern();
+        }else{
+          setSelectedTempo(prev => {
+            if(prev < 244){
+              return prev + 1;
+            }
+            return prev;
+          });     
+        }
+        */
   }
 
   return (

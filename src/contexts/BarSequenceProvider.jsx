@@ -1,6 +1,6 @@
 import React, { useState, createContext, useContext, useEffect, useRef } from 'react';
 import { useMetronome } from "../contexts/MetronomeProvider";
-//import { useLocalStorage } from "../hooks/useLocalStorage";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 
 export const BarSequenceContext = createContext();
 
@@ -13,6 +13,7 @@ export const BarSequenceProvider = ({ children }) => {
     const { noteNumber, noteValue, selectedTempo, createNotePattern } = useMetronome();
     const idCounter = useRef(0);
     const [customBarPattern, setCustomBarPattern] = useState([]);
+    const [isUpdateModeOn, setIsUpdateModeOn] = useState(false);
 
     useEffect(() => {
         console.log("customBarPattern");
@@ -25,6 +26,16 @@ export const BarSequenceProvider = ({ children }) => {
         setCustomBarPattern(prevBarPatterns => {
           if(prevBarPatterns) return [...prevBarPatterns, newBarPattern];
           return [newBarPattern];
+          /*
+            return prevGroups.map(group => {
+            if (group.id === groupId) {
+                const newBarPattern = { id: idCounter.current, barNoteNumber: noteNumber, barNoteValue: noteValue, tempo: selectedTempo, barNotePattern, numberOfBars: 2 };
+                return { ...group, barSequences: [...group.barSequences, newBarPattern] };
+            } else {
+                return group;
+            }
+            });
+          */
         }); 
         idCounter.current++;
       };
@@ -37,6 +48,16 @@ export const BarSequenceProvider = ({ children }) => {
                 return barPattern;
             });
             return updatedBarPatterns;
+            /*
+            return prevGroups.map(group => {
+            if (group.id === groupId) {
+                const newBarPattern = { id: idCounter.current, barNoteNumber: noteNumber, barNoteValue: noteValue, tempo: selectedTempo, barNotePattern, numberOfBars: 2 };
+                return { ...group, barSequences: [...group.barSequences, newBarPattern] };
+            } else {
+                return group;
+            }
+            });
+          */
         });
         
     }
@@ -45,6 +66,16 @@ export const BarSequenceProvider = ({ children }) => {
         setCustomBarPattern(barPatterns => {
             const updatedBarPatterns = barPatterns.filter(bar => bar.id !== barID);
             return updatedBarPatterns;
+            /*
+            return prevGroups.map(group => {
+            if (group.id === groupId) {
+                const newBarPattern = { id: idCounter.current, barNoteNumber: noteNumber, barNoteValue: noteValue, tempo: selectedTempo, barNotePattern, numberOfBars: 2 };
+                return { ...group, barSequences: [...group.barSequences, newBarPattern] };
+            } else {
+                return group;
+            }
+            });
+          */
         });
 
         if(customBarPattern.length === 1) idCounter.current = 0;
@@ -52,7 +83,16 @@ export const BarSequenceProvider = ({ children }) => {
 
     const deleteAllBarPatterns = () =>{
         setCustomBarPattern([]);
-
+          /*
+            return prevGroups.map(group => {
+            if (group.id === groupId) {
+                const newBarPattern = { id: idCounter.current, barNoteNumber: noteNumber, barNoteValue: noteValue, tempo: selectedTempo, barNotePattern, numberOfBars: 2 };
+                return { ...group, barSequences: [...group.barSequences, newBarPattern] };
+            } else {
+                return group;
+            }
+            });
+          */
         idCounter.current = 0;
     }
 
@@ -61,7 +101,9 @@ export const BarSequenceProvider = ({ children }) => {
         addToCustomBarPattern,
         updateBarPattern,
         deleteBarPattern,
-        deleteAllBarPatterns
+        deleteAllBarPatterns,
+        isUpdateModeOn,
+        setIsUpdateModeOn
     };
 
     return (
