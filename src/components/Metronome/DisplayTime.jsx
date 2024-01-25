@@ -6,21 +6,9 @@ export default function DisplayTime() {
 
     const { noteValue, noteNumber, selectedNote } = useMetronome();
 
-    useEffect(() => {
-        console.log(`selectedNote: ${selectedNote}`);
-    }, [selectedNote]);
-
     const timeSignature = (
         <div> {noteNumber} / {noteValue} </div>
     );
-
-    /*
-        - iterate the dots using the number of notes
-        - give the dot that corresponds to the selected beat a different color
-        - remove the class name once it is no longer selected
-
-        //
-    */
 
     return (
         <>

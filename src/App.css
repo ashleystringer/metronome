@@ -43,6 +43,7 @@ body {
     width: 35rem;
     display: flex;
     flex-direction: column;
+    box-shadow: 1.75px 1.5px 1.5px rgb(57, 54, 54);
 }
 
 .beat-range {
@@ -58,6 +59,7 @@ body {
     text-align: center;
 }
 .beat-range input[type="range"] {
+    cursor: pointer;
     margin-left: .2rem;
     margin-right: .2rem;
     width: 90%;
@@ -97,6 +99,10 @@ body {
     background-color: rgb(75, 121, 190);
 }
 
+.time-signature .btn.update-mode {
+    border: 2px solid rgb(34, 56, 88);
+}
+
 .container {
     justify-content: space-between;
     display: flex;
@@ -111,4 +117,43 @@ body {
 
 .time-signature .container button {
     margin-top: 1.2rem;
+}
+
+@media only screen and (max-width: 760px) {
+    .metronome {
+        position: relative;
+        background-color: rgb(238, 238, 238);
+        margin: auto;
+        margin-top: 2.5rem;
+        padding: .75rem;
+        border: 1px solid rgb(126, 118, 118);
+        border-radius: 1%;
+        height: 28rem;
+        width: 28rem;
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    .metronome {
+        position: relative;
+        background-color: rgb(238, 238, 238);
+        margin: auto;
+        margin-top: 2.5rem;
+        padding: .15rem;
+        border: 1px solid rgb(126, 118, 118);
+        border-radius: 1%;
+        height: 28rem;
+        width: 95%;
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+
+@media only screen and (max-width: 375px) {
+    .bpm-slider-btn {
+        width: .75rem;
+    }
 }

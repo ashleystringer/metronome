@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useMetronome } from "../../contexts/MetronomeProvider";
+import { useBarSequence } from "../../contexts/BarSequenceProvider";
 
 
 export default function TimeSignature() {
 
     const { setNoteValue, noteValue, setNoteNumber, noteNumber } = useMetronome();
+    const { isUpdateModeOn } = useBarSequence();
 
     useEffect(() => {
         console.log(`noteValue: ${noteValue}`);
@@ -15,7 +17,6 @@ export default function TimeSignature() {
         setNoteValue(prev => {
             return data;
         });
-        
     }
 
     function handleNoteNum(data){
@@ -24,27 +25,28 @@ export default function TimeSignature() {
         setNoteNumber(prev => {
             return data;
         });
-        
     }
+
+    const btn = (isUpdateModeOn) ? "btn update-mode" : "btn"
 
     return (
         <div className="time-signature">
             Note Value
             <div className="note-value container">
-                <button className={ noteValue === 4 ? "btn selected" : "btn"} onClick={() => handleNoteValue(4)}>4</button>
-                <button className={ noteValue === 8 ? "btn selected" : "btn"} onClick={() => {handleNoteValue(8)}}>8</button>
+                <button className={ noteValue === 4 ?  `${btn} selected` : btn} onClick={() => handleNoteValue(4)}>4</button>
+                <button className={ noteValue === 8 ? `${btn} selected` : btn} onClick={() => {handleNoteValue(8)}}>8</button>
             </div>
             Number of Notes
             <div className="container">
-                <button className={ noteNumber === 2 ? "btn selected" : "btn"} onClick={() => handleNoteNum(2)}>2</button>
-                <button className={ noteNumber === 3 ? "btn selected" : "btn"} onClick={() => handleNoteNum(3)}>3</button>
-                <button className={ noteNumber === 4 ? "btn selected" : "btn"} onClick={() => handleNoteNum(4)}>4</button>
-                <button className={ noteNumber === 5 ? "btn selected" : "btn"} onClick={() => handleNoteNum(5)}>5</button>
-                <button className={ noteNumber === 6 ? "btn selected" : "btn"} onClick={() => handleNoteNum(6)}>6</button>
-                <button className={ noteNumber === 7 ? "btn selected" : "btn"} onClick={() => handleNoteNum(7)}>7</button>
-                <button className={ noteNumber === 8 ? "btn selected" : "btn"} onClick={() => handleNoteNum(8)}>8</button>
-                <button className={ noteNumber === 9 ? "btn selected" : "btn"} onClick={() => handleNoteNum(9)}>9</button>
-                <button className={ noteNumber === 12 ? "btn selected" : "btn"} onClick={() => handleNoteNum(12)}>12</button>
+                <button className={ noteNumber === 2 ? `${btn} selected` : btn} onClick={() => handleNoteNum(2)}>2</button>
+                <button className={ noteNumber === 3 ? `${btn} selected` : btn} onClick={() => handleNoteNum(3)}>3</button>
+                <button className={ noteNumber === 4 ? `${btn} selected` : btn} onClick={() => handleNoteNum(4)}>4</button>
+                <button className={ noteNumber === 5 ? `${btn} selected` : btn} onClick={() => handleNoteNum(5)}>5</button>
+                <button className={ noteNumber === 6 ? `${btn} selected` : btn} onClick={() => handleNoteNum(6)}>6</button>
+                <button className={ noteNumber === 7 ? `${btn} selected` : btn} onClick={() => handleNoteNum(7)}>7</button>
+                <button className={ noteNumber === 8 ? `${btn} selected` : btn} onClick={() => handleNoteNum(8)}>8</button>
+                <button className={ noteNumber === 9 ? `${btn} selected` : btn} onClick={() => handleNoteNum(9)}>9</button>
+                <button className={ noteNumber === 12 ? `${btn} selected` : btn} onClick={() => handleNoteNum(12)}>12</button>
             </div>
         </div>
     )

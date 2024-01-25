@@ -12,11 +12,15 @@ export default function Metronome() {
 
   const [isMetrOn, setIsMetrOn] = useState(false);
   const [synth, setSynth] = useState(null);
-  const customPatternIndexRef = useRef(0);
 
+
+  const customPatternIndexRef = useRef(0);
+  const barTrackerRef = useRef(0);
+  const noteRef = useRef(0);
 
   const {
     selectedTempo,
+    setSelectedTempo,
     setSelectedNote,
     noteValue,
     setNoteValue,
@@ -36,40 +40,32 @@ export default function Metronome() {
     setSynth(new Tone.MembraneSynth().toDestination());
   }, []);
 
-
   const playModes = {
     default: {
       tick: () => {
         console.log(notePattern);
 
         const bpm = 60000 / parseInt(selectedTempo);
-    
-        let note = 0;
-    
+        
         const noteValueStr = noteValue.toString() + "n"; 
     
           const interval = setInterval(() => {
             
-            if(note == notePattern.length){
-              console.log(`notePattern.length: ${notePattern.length}`);
-              console.log("note = 0");
-              note = 0;
+            if(noteRef.current == notePattern.length){
+              noteRef.current = 0;
               setSelectedNote(1);
             }
     
-            if(notePattern[note] == 1){
-              console.log("note == 1");
+            if(notePattern[noteRef.current] == 1){
               synth.triggerAttackRelease("C3", noteValueStr);
-            }else if(notePattern[note] == 2){
-              console.log("note == 2");
+            }else if(notePattern[noteRef.current] == 2){
               synth.triggerAttackRelease("C2", noteValueStr);
             }else{
-              console.log("note == 3");
               synth.triggerAttackRelease("C4", noteValueStr);
             }
     
-            note++;
-            setSelectedNote(note);
+            noteRef.current++;
+            setSelectedNote(noteRef.current);
           }, 
           bpm);
     
@@ -78,16 +74,19 @@ export default function Metronome() {
     },
     custom: {
       tick: () => {
-        let note = 0;
-        let barTracker = 0;
+        if (customBarPattern.length == 0){
+          setIsMetrOn(false)
+          return;
+        }; 
 
-
-        let { barNotePattern, numberOfBars, barNoteNumber, barNoteValue } = customBarPattern[customPatternIndexRef.current];
+        let { barNotePattern, numberOfBars, barNoteNumber, barNoteValue, tempo } = customBarPattern[customPatternIndexRef.current];
 
         setNoteValue(barNoteValue);
         setNoteNumber(barNoteNumber);
+        setSelectedTempo(tempo);
 
-        const bpm = 60000 / parseInt(selectedTempo);
+
+        let bpm = 60000 / parseInt(tempo);
     
         const noteValueStr = noteValue.toString() + "n"; 
     
@@ -95,40 +94,43 @@ export default function Metronome() {
 
             console.log(barNotePattern);
               
-              if(note == barNotePattern.length){
-                note = 0;
+              if(noteRef.current == barNotePattern.length){
+                noteRef.current = 0;
                 setSelectedNote(1);
-                barTracker++;
+                barTrackerRef.current++;
               }
       
-              if(barTracker == numberOfBars && customPatternIndexRef.current < customBarPattern.length){
-                barTracker = 0;
+              if(barTrackerRef.current == numberOfBars && customPatternIndexRef.current < customBarPattern.length){
+                barTrackerRef.current = 0;
                 customPatternIndexRef.current++;
-                ({ barNoteNumber, barNoteValue } = customBarPattern[customPatternIndexRef.current]);
-                setNoteValue(barNoteValue);
-                setNoteNumber(barNoteNumber);
+                if(customPatternIndexRef.current < customBarPattern.length){
+                  ({ barNoteNumber, barNoteValue, tempo } = customBarPattern[customPatternIndexRef.current]);
+                  setNoteValue(barNoteValue);
+                  setNoteNumber(barNoteNumber);
+                  setSelectedTempo(tempo);
+                  bpm = 600 / parseInt(tempo);
+                }
               }
-              
-        
-                if(barNotePattern[note] == 1){
-                  synth.triggerAttackRelease("C3", noteValueStr);
-                }else if(barNotePattern[note] == 2){
-                  synth.triggerAttackRelease("C2", noteValueStr);
-                }else{
-                  synth.triggerAttackRelease("C4", noteValueStr);
-                }
-        
-                note++;
-                setSelectedNote(note);
 
-                if(customPatternIndexRef.current == customBarPattern.length){
-                  console.log("patternIndex == customBarPattern.length");
-                  setIsMetrOn(false);
-                  customPatternIndexRef.current = 0;
-                  return;
-                }else{
-                  ({ barNotePattern, numberOfBars } = customBarPattern[customPatternIndexRef.current]);
-                }
+              if(customPatternIndexRef.current == customBarPattern.length){
+                //This is happening after the audio is triggered.
+                setIsMetrOn(false);
+                customPatternIndexRef.current = 0;
+                return;
+              }else{
+                ({ barNotePattern, numberOfBars } = customBarPattern[customPatternIndexRef.current]);
+              }
+
+              if(barNotePattern[noteRef.current] == 1){
+                synth.triggerAttackRelease("C3", noteValueStr);
+              }else if(barNotePattern[noteRef.current] == 2){
+                synth.triggerAttackRelease("C2", noteValueStr);
+              }else{
+                synth.triggerAttackRelease("C4", noteValueStr);
+              }
+
+              noteRef.current++;
+              setSelectedNote(noteRef.current);
           }, 
           bpm);
     
@@ -146,6 +148,10 @@ export default function Metronome() {
 
   }, [isMetrOn, selectedTempo, noteNumber, notePattern, mode]);
 
+  useEffect(() => {
+    noteRef.current = 0;
+    console.log("mode changed");
+  }, [mode]);
 
   useEffect(() => {
     if(noteValue == 4){
