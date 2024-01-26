@@ -1,6 +1,6 @@
 import React, { useState, createContext, useContext, useEffect, useRef } from 'react';
+import { useLocalStorage } from "../hooks/useLocalStorage";
 import { useMetronome } from "../contexts/MetronomeProvider";
-import { useBarGroup } from "../contexts/BarGroupProvider";
 
 export const BarSequenceContext = createContext();
 
@@ -11,22 +11,14 @@ export function useBarSequence(){
 export const BarSequenceProvider = ({ children }) => {
 
     const { noteNumber, noteValue, selectedTempo, createNotePattern } = useMetronome();
-    const { barGroups, addBarGroup, updateBarGroup, deleteBarGroup } = useBarGroup();
+    const [barGroups, setBarGroups] = useLocalStorage("barGroups");
     const idCounter = useRef(0);
     const [customBarPattern, setCustomBarPattern] = useState([]);
     const [isUpdateModeOn, setIsUpdateModeOn] = useState(false);
 
     useEffect(() => {
-        console.log("customBarPattern");
-        console.log(customBarPattern);
-    }, [customBarPattern]);
-
-    const selectBarPattern = (barID) => {
-        /*
-        - Find the bar pattern in barGroups by id
-        - store it in customBarPattern
-        */
-    };
+        if(barGroups.length > 0) setCustomBarPattern(barGroups);
+    }, []);
 
     const addToCustomBarPattern = () => {
         const barNotePattern = createNotePattern(noteNumber, noteValue);
@@ -35,12 +27,15 @@ export const BarSequenceProvider = ({ children }) => {
           if(prevBarPatterns) return [...prevBarPatterns, newBarPattern];
           return [newBarPattern];
         }); 
+        
+        setBarGroups(prevBarPatterns => {
+          if(prevBarPatterns) return [...prevBarPatterns, newBarPattern];
+          return [newBarPattern];
+        }); 
         idCounter.current++;
-        addBarGroup(newBarPattern);
       };
 
     const updateBarPattern = (barID, newBar) => {
-        //Need to alter the contet of the bar pattern
         setCustomBarPattern(barPatterns => {
             const updatedBarPatterns = barPatterns.map(barPattern => {
                 if(barPatern.id === barID) return newBar;
@@ -48,7 +43,14 @@ export const BarSequenceProvider = ({ children }) => {
             });
             return updatedBarPatterns;
         });
-        //updateBarGroup(newBar);
+        
+        setBarGroups(barPatterns => {
+            const updatedBarPatterns = barPatterns.map(barPattern => {
+                if(barPatern.id === barID) return newBar;
+                return barPattern;
+            });
+            return updatedBarPatterns;
+        });
     }
 
     const deleteBarPattern = (barID) => {
@@ -57,17 +59,21 @@ export const BarSequenceProvider = ({ children }) => {
             return updatedBarPatterns;
         });
 
+        setBarGroups(barPatterns => {
+            const updatedBarPatterns = barPatterns.filter(bar => bar.id !== barID);
+            return updatedBarPatterns;
+        });
+
         if(customBarPattern.length === 1) idCounter.current = 0;
-        //deleteBarGroup(bar);
     }
 
     const deleteAllBarPatterns = () =>{
         setCustomBarPattern([]);
+        setBarGroups([]);
         idCounter.current = 0;
     }
 
     const value = {
-        selectBarPattern,
         customBarPattern,
         addToCustomBarPattern,
         updateBarPattern,

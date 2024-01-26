@@ -10,7 +10,8 @@ export function useBarGroup(){
 
 export const BarGroupProvider = ({ children }) => {
 
-    const [barGroups, setBarGroups] = useLocalStorage("barGroups", []);
+    const [barGroups, setBarGroups] = useLocalStorage("barGroups");
+
 
     useEffect(() => {
         console.log("barGroups");
@@ -20,9 +21,10 @@ export const BarGroupProvider = ({ children }) => {
     const addBarGroup = (barGroup) => {
         console.log("addBarGroup");
         console.log(barGroup);
+        
         setBarGroups(prevBarGroups => {
             if(prevBarGroups) return [...prevBarGroups, barGroup];
-            return [barGroup];
+            return barGroup;
         });
     };    
 
