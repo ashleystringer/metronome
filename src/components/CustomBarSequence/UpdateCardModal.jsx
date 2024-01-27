@@ -1,6 +1,6 @@
-import "./UpdateCardModal.css";
+import "./css/UpdateCardModal.css";
 import React from 'react';
-import { useBarSequence } from "../../contexts/BarSequenceProvider";
+import { useBarSequence } from "../../context/BarSequenceProvider";
 
 export default function UpdateCardModal({ isModalOpen, closeModal, selectedSequence }) {
 

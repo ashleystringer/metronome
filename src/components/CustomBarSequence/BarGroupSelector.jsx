@@ -1,9 +1,9 @@
 import React from 'react'
-import { useBarGroup } from "../../contexts/BarGroupProvider";
-import { useBarSequence } from "../../contexts/BarSequenceProvider";
+import { useBarGroup } from "../../context/BarGroupProvider";
+import { useBarSequence } from "../../context/BarSequenceProvider";
 
 
-export default function SequenceGroupSelector() {
+export default function BarGroupSelector() {
 
   const { barGroups } = useBarGroup();
   const { selectBarPattern } = useBarSequence();

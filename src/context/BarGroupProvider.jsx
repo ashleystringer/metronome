@@ -1,5 +1,5 @@
 import React, { useState, createContext, useContext, useEffect, useRef } from 'react';
-import { useMetronome } from "../contexts/MetronomeProvider";
+import { useMetronome } from "../context/MetronomeProvider";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 
 export const BarGroupContext = createContext();

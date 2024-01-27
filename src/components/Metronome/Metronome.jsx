@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useMetronome } from "../../contexts/MetronomeProvider";
-import { useBarSequence } from "../../contexts/BarSequenceProvider";
+import { useMetronome } from "../../context/MetronomeProvider";
+import { useBarSequence } from "../../context/BarSequenceProvider";
 import * as Tone from "tone";
 import DisplayTime from "./DisplayTime";
-import StartMetronome from "./StartMetronome";
-import BPM from "./BPM";
-import TimeSignature from "./TimeSignature";
+import MetronomeStartButton from "./MetronomeStartButton";
+import BPMRange from "./BPMRange";
+import TimeSignatureSelector from "./TimeSignatureSelector";
 import { simpleTime, compoundTime } from "../../time-signatures";
 
 export default function Metronome() {
@@ -164,9 +164,9 @@ export default function Metronome() {
   return (
     <div className="metronome">
       <DisplayTime/>
-      <BPM/>
-      <StartMetronome isMetrOn={isMetrOn} setIsMetrOn={setIsMetrOn}/>
-      <TimeSignature/>
+      <BPMRange/>
+      <MetronomeStartButton isMetrOn={isMetrOn} setIsMetrOn={setIsMetrOn}/>
+      <TimeSignatureSelector/>
     </div>
   );
 }

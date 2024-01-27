@@ -1,9 +1,9 @@
-import { MetronomeProvider } from "./contexts/MetronomeProvider";
-import { BarGroupProvider } from "./contexts/BarGroupProvider";
-import { BarSequenceProvider } from "./contexts/BarSequenceProvider";
+import { MetronomeProvider } from "./context/MetronomeProvider";
+import { BarGroupProvider } from "./context/BarGroupProvider";
+import { BarSequenceProvider } from "./context/BarSequenceProvider";
 import ModeSelector from './components/Metronome/ModeSelector';
 import Metronome from "./components/Metronome/Metronome";
-import BarSequenceWrapper from './components/CustomBarSequence/BarSequenceWrapper';
+import BarSequenceButton from './components/CustomBarSequence/BarSequenceButton';
 
 import "./App.css";
 
@@ -14,7 +14,7 @@ function App() {
         <BarSequenceProvider>
             <ModeSelector/>
             <Metronome/>
-            <BarSequenceWrapper/>
+            <BarSequenceButton/>
         </BarSequenceProvider>
       </BarGroupProvider>
     </MetronomeProvider>

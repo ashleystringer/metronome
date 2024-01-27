@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useMetronome } from "../../contexts/MetronomeProvider";
+import { useMetronome } from "../../context/MetronomeProvider";
 import BeatsVisualizer from "./BeatsVisualizer";
 
 export default function DisplayTime() {

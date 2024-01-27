@@ -1,6 +1,6 @@
 import React from 'react';
-import { useMetronome } from "../../contexts/MetronomeProvider";
-import { useBarSequence } from "../../contexts/BarSequenceProvider";
+import { useMetronome } from "../../context/MetronomeProvider";
+import { useBarSequence } from "../../context/BarSequenceProvider";
 
 export default function CreateBarSequence() {
 

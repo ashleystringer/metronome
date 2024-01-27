@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
-import "./CardCollection.css";
-import { useBarSequence } from "../../contexts/BarSequenceProvider";
+import "./css/CardCollection.css";
+import { useBarSequence } from "../../context/BarSequenceProvider";
 import BarSequenceCard from "./BarSequenceCard";
 import UpdateCardModal from './UpdateCardModal';
 

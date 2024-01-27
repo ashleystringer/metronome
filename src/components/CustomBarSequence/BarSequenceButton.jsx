@@ -1,10 +1,10 @@
-import "./BarSequenceWrapper.css";
+import "./css/BarSequenceButton.css";
 import React from 'react';
-import { useMetronome } from "../../contexts/MetronomeProvider";
+import { useMetronome } from "../../context/MetronomeProvider";
 import CustomBarSequence from './CustomBarSequence';
 
 
-export default function BarSequenceWrapper() {
+export default function BarSequenceButton() {
     
     const { mode, setMode } = useMetronome();
 

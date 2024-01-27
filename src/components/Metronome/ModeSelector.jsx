@@ -1,8 +1,8 @@
-import "./ModeSelector.css";
+import "./css/ModeSelector.css";
 import React from 'react';
-import { useMetronome } from "../../contexts/MetronomeProvider";
+import { useMetronome } from "../../context/MetronomeProvider";
 //import { useLocalStorage } from "../hooks/useLocalStorage";
-import SequenceGroupSelector from '../CustomBarSequence/SequenceGroupSelector';
+import BarGroupSelector from '../CustomBarSequence/BarGroupSelector';
 
 export default function ModeSelector() {
 
@@ -22,7 +22,7 @@ export default function ModeSelector() {
                 Custom
             </option>
         </select>
-        { (mode === "custom") ? (<SequenceGroupSelector/>) : ""}
+        { (mode === "custom") ? (<BarGroupSelector/>) : ""}
     </div>
   )
 }

@@ -1,4 +1,4 @@
-import "./CustomBarSequence.css";
+import "./css/CustomBarSequence.css";
 import React from 'react';
 import CreateBarSequence from './CreateBarSequence';
 import CardCollection from "./CardCollection";

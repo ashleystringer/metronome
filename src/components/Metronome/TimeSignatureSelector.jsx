@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useMetronome } from "../../contexts/MetronomeProvider";
-import { useBarSequence } from "../../contexts/BarSequenceProvider";
+import { useMetronome } from "../../context/MetronomeProvider";
+import { useBarSequence } from "../../context/BarSequenceProvider";
 
 
-export default function TimeSignature() {
+export default function TimeSignatureSelector() {
 
     const { setNoteValue, noteValue, setNoteNumber, noteNumber } = useMetronome();
     const { isUpdateModeOn } = useBarSequence();
@@ -13,18 +13,23 @@ export default function TimeSignature() {
     }, [noteValue]);
 
     function handleNoteValue(data){
-        
-        setNoteValue(prev => {
-            return data;
-        });
+        if(isUpdateModeOn){
+            // updateBarPattern(barID, newBar);
+        }else{
+            setNoteValue(prev => {
+                return data;
+            });
+        }
     }
 
     function handleNoteNum(data){
-        console.log(data);
-        
-        setNoteNumber(prev => {
-            return data;
-        });
+        if(isUpdateModeOn){
+            // updateBarPattern(barID, newBar);
+        }else{
+            setNoteNumber(prev => {
+                return data;
+            });
+        }        
     }
 
     const btn = (isUpdateModeOn) ? "btn update-mode" : "btn"

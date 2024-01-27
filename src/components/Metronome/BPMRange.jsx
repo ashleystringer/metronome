@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { useMetronome } from "../../contexts/MetronomeProvider";
-import { useBarSequence } from "../../contexts/BarSequenceProvider";
+import { useMetronome } from "../../context/MetronomeProvider";
+import { useBarSequence } from "../../context/BarSequenceProvider";
 
 
-export default function BPM() {
+export default function BPMRange() {
 
   const { selectedTempo, setSelectedTempo } = useMetronome();
   const { isUpdateModeOn } = useBarSequence();

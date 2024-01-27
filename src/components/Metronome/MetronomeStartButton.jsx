@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default function StartMetronome({ isMetrOn, setIsMetrOn }) {
+export default function MetronomeStartButton({ isMetrOn, setIsMetrOn }) {
 
   function toggle() {
     setIsMetrOn(prev => {

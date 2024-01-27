@@ -1,6 +1,6 @@
 import React from 'react';
-import "./BarSequenceCard.css";
-import { useBarSequence } from "../../contexts/BarSequenceProvider";
+import "./css/BarSequenceCard.css";
+import { useBarSequence } from "../../context/BarSequenceProvider";
 
 export default function BarSequenceCard({ BarSequenceData, openUpdateModal, setSelectedSequence }) {
 
