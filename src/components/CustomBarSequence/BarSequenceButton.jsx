@@ -1,7 +1,7 @@
 import "./css/BarSequenceButton.css";
 import React from 'react';
 import { useMetronome } from "../../context/MetronomeProvider";
-import CustomBarSequence from './CustomBarSequence';
+import BarSequenceCustomizer from './BarSequenceCustomizer';
 
 
 export default function BarSequenceButton() {
@@ -14,7 +14,7 @@ export default function BarSequenceButton() {
 
   return (
     <div className='bar-sequence-group-btn'>
-    { (mode === "custom") ? (<CustomBarSequence/>) : (<button onClick={handleButtonClick}>Create Bar Sequence Group</button>)}
+    { (mode === "custom") ? (<BarSequenceCustomizer/>) : (<button onClick={handleButtonClick}>Create Bar Sequence Group</button>)}
     </div>
   )
 }

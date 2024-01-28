@@ -1,5 +1,5 @@
-import React, { useState, createContext, useContext, useEffect } from 'react';
-import { simpleTime, compoundTime } from "../time-signatures";
+import React, { useState, createContext, useContext } from 'react';
+import { simpleTime, compoundTime } from "../utils/time-signatures";
 
 
 export const MetronomeContext = createContext();

@@ -2,7 +2,7 @@ import React from 'react';
 import { useMetronome } from "../../context/MetronomeProvider";
 import { useBarSequence } from "../../context/BarSequenceProvider";
 
-export default function CreateBarSequence() {
+export default function BarSequenceCreator() {
 
   const { selectedTempo, noteValue, noteNumber, mode } = useMetronome();
   const { addToCustomBarPattern } = useBarSequence();

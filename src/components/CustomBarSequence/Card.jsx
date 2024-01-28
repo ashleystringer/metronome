@@ -1,8 +1,8 @@
 import React from 'react';
-import "./css/BarSequenceCard.css";
+import "./css/Card.css";
 import { useBarSequence } from "../../context/BarSequenceProvider";
 
-export default function BarSequenceCard({ BarSequenceData, openUpdateModal, setSelectedSequence }) {
+export default function Card({ BarSequenceData, openUpdateModal, setSelectedSequence }) {
 
   const { id, tempo, barNoteValue, barNoteNumber } = BarSequenceData;
   const { deleteBarPattern, updateBarPattern, setIsUpdateModeOn } = useBarSequence();

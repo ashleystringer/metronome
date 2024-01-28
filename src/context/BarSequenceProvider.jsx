@@ -1,4 +1,4 @@
-import React, { useState, createContext, useContext, useEffect, useRef } from 'react';
+import React, { useState, createContext, useContext, useRef } from 'react';
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { useMetronome } from "../context/MetronomeProvider";
 
@@ -11,14 +11,13 @@ export function useBarSequence(){
 export const BarSequenceProvider = ({ children }) => {
 
     const { noteNumber, noteValue, selectedTempo, createNotePattern } = useMetronome();
-    const [barGroups, setBarGroups] = useLocalStorage("barGroups");
+    const [barGroups, setBarGroups] = useLocalStorage("barGroups", []);
     const idCounter = useRef(0);
-    const [customBarPattern, setCustomBarPattern] = useState([]);
     const [isUpdateModeOn, setIsUpdateModeOn] = useState(false);
-
-    useEffect(() => {
-        if(barGroups.length > 0) setCustomBarPattern(barGroups);
-    }, []);
+    const [customBarPattern, setCustomBarPattern] = useState(() => {
+        if(barGroups.length > 0) return barGroups;
+        return [];
+    });
 
     const addToCustomBarPattern = () => {
         const barNotePattern = createNotePattern(noteNumber, noteValue);

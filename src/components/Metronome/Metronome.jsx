@@ -6,12 +6,12 @@ import DisplayTime from "./DisplayTime";
 import MetronomeStartButton from "./MetronomeStartButton";
 import BPMRange from "./BPMRange";
 import TimeSignatureSelector from "./TimeSignatureSelector";
-import { simpleTime, compoundTime } from "../../time-signatures";
+import { simpleTime, compoundTime } from "../../utils/time-signatures";
 
 export default function Metronome() {
 
   const [isMetrOn, setIsMetrOn] = useState(false);
-  const [synth, setSynth] = useState(null);
+  const [synth, setSynth] = useState(new Tone.MembraneSynth().toDestination());
 
 
   const customPatternIndexRef = useRef(0);
@@ -34,11 +34,6 @@ export default function Metronome() {
   const {
     customBarPattern
   } = useBarSequence();
-
-
-  useEffect(() => {
-    setSynth(new Tone.MembraneSynth().toDestination());
-  }, []);
 
   const playModes = {
     default: {
@@ -149,7 +144,7 @@ export default function Metronome() {
   }, [isMetrOn, selectedTempo, noteNumber, notePattern, mode]);
 
   useEffect(() => {
-    noteRef.current = 0;
+    noteRef.current = 0; //Subject to change?
     console.log("mode changed");
   }, [mode]);
 

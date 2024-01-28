@@ -8,10 +8,6 @@ export default function TimeSignatureSelector() {
     const { setNoteValue, noteValue, setNoteNumber, noteNumber } = useMetronome();
     const { isUpdateModeOn } = useBarSequence();
 
-    useEffect(() => {
-        console.log(`noteValue: ${noteValue}`);
-    }, [noteValue]);
-
     function handleNoteValue(data){
         if(isUpdateModeOn){
             // updateBarPattern(barID, newBar);

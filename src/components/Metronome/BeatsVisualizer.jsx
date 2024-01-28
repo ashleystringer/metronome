@@ -10,10 +10,6 @@ export default function BeatsVisualizer({ noteNumber, selectedNote }) {
         }
     }, [noteNumber]);
 
-    useEffect(() => {
-        //console.log(`selectedNote: ${selectedNote}`);
-    }, [selectedNote]);
-
     return (
         <div className="beat-group">
             {beats.map((beat, index) => (

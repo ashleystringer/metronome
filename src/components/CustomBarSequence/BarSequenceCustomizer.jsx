@@ -1,13 +1,13 @@
 import "./css/CustomBarSequence.css";
 import React from 'react';
-import CreateBarSequence from './CreateBarSequence';
+import BarSequenceCreator from './BarSequenceCreator';
 import CardCollection from "./CardCollection";
 
-export default function CustomBarSequence() {
+export default function BarSequenceCustomizer() {
   return (
     <div className="custom-bar-sequence-containter">
       <CardCollection/>
-      <CreateBarSequence/>
+      <BarSequenceCreator/>
     </div>
   )
 }

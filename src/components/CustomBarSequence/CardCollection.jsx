@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import "./css/CardCollection.css";
 import { useBarSequence } from "../../context/BarSequenceProvider";
-import BarSequenceCard from "./BarSequenceCard";
+import Card from "./Card";
 import UpdateCardModal from './UpdateCardModal';
 
 export default function CardCollection() {
@@ -29,7 +29,7 @@ const { customBarPattern } = useBarSequence();
       <button onClick={handleScrollLeft} className="scroll-btn">Scroll Left</button>
       <div ref={scrollContainerRef} className="scroll-container">
         { (customBarPattern.length !== 0) ? (customBarPattern.map((BarPattern, index) => {
-            return (<BarSequenceCard 
+            return (<Card 
               key={index} 
               BarSequenceData={BarPattern} 
               openUpdateModal={() => setIsModalOpen(true)} 
