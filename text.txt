@@ -23,3 +23,12 @@ CSS
     - There needs to be a way for the UpdateCardModal to indicate which bar sequence should be updated.
     - There needs to be reorganization of the bar sequences. 
     - There needs to be storage established for the bar sequences.
+
+
+*** Make sure to set the ID of the bar sequence that's going to be subject to an update in the BarSequenceProvider.
+    *** (based on which Card is selected and update mode being on)
+*** Update that new state within TimeSignatureSelector and BPMRange
+    *** using the ID for that bar sequence to update the state in customBarSequence.
+*** Finalize the update using updateBarPattern in BarSequenceProvider. 
+    *** If there's found to be a difference in the state in customBarSequence and barGroup, update barGroup.
+*** Reset the sequence ID state after the update is finalized and update node is turned off.

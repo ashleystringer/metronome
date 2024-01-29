@@ -6,11 +6,20 @@ import { useBarSequence } from "../../context/BarSequenceProvider";
 export default function TimeSignatureSelector() {
 
     const { setNoteValue, noteValue, setNoteNumber, noteNumber } = useMetronome();
-    const { isUpdateModeOn } = useBarSequence();
+    const { setCustomBarPattern, customBarPattern, isUpdateModeOn, sequenceID } = useBarSequence();
 
     function handleNoteValue(data){
         if(isUpdateModeOn){
-            // updateBarPattern(barID, newBar);
+            console.log(sequenceID);
+            setCustomBarPattern(prev => {
+                const updatedBarPatterns = prev.map(barPattern => {
+                    if(barPattern.id === sequenceID) return {...barPattern, barNoteValue: data};
+                    return barPattern;
+                });
+                return updatedBarPatterns;
+            });
+            const updatedData = customBarPattern.find(pattern => pattern.id === sequenceID);
+            console.log(updatedData);
         }else{
             setNoteValue(prev => {
                 return data;
@@ -20,7 +29,17 @@ export default function TimeSignatureSelector() {
 
     function handleNoteNum(data){
         if(isUpdateModeOn){
-            // updateBarPattern(barID, newBar);
+            console.log(sequenceID);
+            setCustomBarPattern(prev => {
+                const updatedBarPatterns = prev.map(barPattern => {
+                    if(barPattern.id === sequenceID) return {...barPattern, barNoteNumber: data};
+                    return barPattern;
+                });
+                return updatedBarPatterns;
+            });
+
+            const updatedData = customBarPattern.find(pattern => pattern.id === sequenceID);
+            console.log(updatedData);
         }else{
             setNoteNumber(prev => {
                 return data;

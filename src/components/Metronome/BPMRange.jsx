@@ -6,52 +6,51 @@ import { useBarSequence } from "../../context/BarSequenceProvider";
 export default function BPMRange() {
 
   const { selectedTempo, setSelectedTempo } = useMetronome();
-  const { isUpdateModeOn } = useBarSequence();
+  const { isUpdateModeOn, sequenceID, setCustomBarPattern } = useBarSequence();
 
   function onChange(e){
-      setSelectedTempo(e.target.valueAsNumber);
+      if(isUpdateModeOn){
+        updatePrevTempo();
+        setSelectedTempo(e.target.valueAsNumber);
+      }else{
+        setSelectedTempo(e.target.valueAsNumber);
+      }
+  }
+
+  function updatePrevTempo(){
+    setCustomBarPattern(prev => {
+      const updatedBarPatterns = prev.map(barPattern => {
+          if(barPattern.id === sequenceID) return {...barPattern, tempo: selectedTempo};
+          return barPattern;
+      });
+      return updatedBarPatterns;
+    });
   }
 
   function decreaseTempo(){
-    setSelectedTempo(prev => {
-      if(prev > 30){
-        return prev - 1;
+      if(isUpdateModeOn){
+        updatePrevTempo();
+      }else{
+        setSelectedTempo(prev => {
+          if(prev > 30){
+            return prev - 1;
+          }
+          return prev;
+        });
       }
-      return prev;
-    });
-      /*
-        if(isUpdateModeOn){
-          //updateBarPattern();
-        }else{
-          setSelectedTempo(prev => {
-            if(prev > 30){
-              return prev - 1;
-            }
-            return prev;
-          });
-        }
-        */
   }
 
-  function increaseTempo(){
-    setSelectedTempo(prev => {
-      if(prev < 244){
-        return prev + 1;
+  function increaseTempo(){  
+      if(isUpdateModeOn){
+        updatePrevTempo();
+      }else{
+        setSelectedTempo(prev => {
+          if(prev < 244){
+            return prev + 1;
+          }
+          return prev;
+        });     
       }
-      return prev;
-    });
-        /*
-        if(isUpdateModeOn){
-          //updateBarPattern();
-        }else{
-          setSelectedTempo(prev => {
-            if(prev < 244){
-              return prev + 1;
-            }
-            return prev;
-          });     
-        }
-        */
   }
 
   return (

@@ -25,6 +25,9 @@ export default function UpdateCardModal({ isModalOpen, closeModal, selectedSeque
                     <div>Tempo: {tempo}</div>
                     <div>Note value: {barNoteValue}</div>
                     <div>Note number: {barNoteNumber}</div>
+                    <hr/>
+                    <button className="delete-btn">Cancel</button>
+                    <button className="update-btn">Update</button>
                 </div>   
                 <div className="modal-footer"></div>
             </div>

@@ -14,6 +14,7 @@ export const BarSequenceProvider = ({ children }) => {
     const [barGroups, setBarGroups] = useLocalStorage("barGroups", []);
     const idCounter = useRef(0);
     const [isUpdateModeOn, setIsUpdateModeOn] = useState(false);
+    const [sequenceID, setSequenceID] = useState(0);
     const [customBarPattern, setCustomBarPattern] = useState(() => {
         if(barGroups.length > 0) return barGroups;
         return [];
@@ -34,22 +35,33 @@ export const BarSequenceProvider = ({ children }) => {
         idCounter.current++;
       };
 
-    const updateBarPattern = (barID, newBar) => {
-        setCustomBarPattern(barPatterns => {
-            const updatedBarPatterns = barPatterns.map(barPattern => {
-                if(barPatern.id === barID) return newBar;
-                return barPattern;
-            });
-            return updatedBarPatterns;
-        });
+    const isBarSequenceUpdated = () => {
+        const customPattern = customBarPattern.find(pattern => pattern.id === sequenceID);
+        const groupPattern = barGroups.find(group => group.id === sequenceID);
+
+        if(!customPattern || !groupPattern) return false;
+
+        return Object.keys(customPattern).every(key => customPattern[key] === groupPattern[key]);
+    }
+
+    const updateBarPattern = () => {
+        // compare customBarPattern with barGroups by barID
+        // if customBarPattern by ID is different from barGroups by ID
+        // update barGroups by ID with customBarPattern by ID
+
+        if(!isBarSequenceUpdated()) return;
+
+        const updatedData = customBarPattern.find(pattern => pattern.id === sequenceID);
         
         setBarGroups(barPatterns => {
             const updatedBarPatterns = barPatterns.map(barPattern => {
-                if(barPatern.id === barID) return newBar;
+                if(barPattern.id === sequenceID) return updatedData;
                 return barPattern;
             });
             return updatedBarPatterns;
         });
+
+        setSequenceID(0);
     }
 
     const deleteBarPattern = (barID) => {
@@ -74,12 +86,15 @@ export const BarSequenceProvider = ({ children }) => {
 
     const value = {
         customBarPattern,
+        setCustomBarPattern,
         addToCustomBarPattern,
         updateBarPattern,
         deleteBarPattern,
         deleteAllBarPatterns,
         isUpdateModeOn,
-        setIsUpdateModeOn
+        setIsUpdateModeOn,
+        sequenceID,
+        setSequenceID
     };
 
     return (
