@@ -6,19 +6,18 @@ import { useBarSequence } from "../../context/BarSequenceProvider";
 export default function TimeSignatureSelector() {
 
     const { setNoteValue, noteValue, setNoteNumber, noteNumber } = useMetronome();
-    const { setCustomBarPattern, customBarPattern, isUpdateModeOn, sequenceID } = useBarSequence();
+    const { setCustomBarPattern, customBarPattern, isUpdateModeOn, sequenceIDRef } = useBarSequence();
 
     function handleNoteValue(data){
         if(isUpdateModeOn){
-            console.log(sequenceID);
             setCustomBarPattern(prev => {
                 const updatedBarPatterns = prev.map(barPattern => {
-                    if(barPattern.id === sequenceID) return {...barPattern, barNoteValue: data};
+                    if(barPattern.id === sequenceIDRef.current) return {...barPattern, barNoteValue: data};
                     return barPattern;
                 });
                 return updatedBarPatterns;
             });
-            const updatedData = customBarPattern.find(pattern => pattern.id === sequenceID);
+            const updatedData = customBarPattern.find(pattern => pattern.id === sequenceIDRef.current);
             console.log(updatedData);
         }else{
             setNoteValue(prev => {
@@ -29,16 +28,15 @@ export default function TimeSignatureSelector() {
 
     function handleNoteNum(data){
         if(isUpdateModeOn){
-            console.log(sequenceID);
             setCustomBarPattern(prev => {
                 const updatedBarPatterns = prev.map(barPattern => {
-                    if(barPattern.id === sequenceID) return {...barPattern, barNoteNumber: data};
+                    if(barPattern.id === sequenceIDRef.current) return {...barPattern, barNoteNumber: data};
                     return barPattern;
                 });
                 return updatedBarPatterns;
             });
 
-            const updatedData = customBarPattern.find(pattern => pattern.id === sequenceID);
+            const updatedData = customBarPattern.find(pattern => pattern.id === sequenceIDRef.current);
             console.log(updatedData);
         }else{
             setNoteNumber(prev => {

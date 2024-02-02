@@ -80,6 +80,8 @@ export default function Metronome() {
         setNoteNumber(barNoteNumber);
         setSelectedTempo(tempo);
 
+        console.log(customBarPattern[customPatternIndexRef.current]);
+
 
         let bpm = 60000 / parseInt(tempo);
     
@@ -148,7 +150,7 @@ export default function Metronome() {
     console.log("mode changed");
   }, [mode]);
 
-  useEffect(() => {
+  useEffect(() => { //This will probably need to change.
     if(noteValue == 4){
       setNotePattern(simpleTime(noteNumber));
     }else if(noteValue == 8){

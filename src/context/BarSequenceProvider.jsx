@@ -12,9 +12,9 @@ export const BarSequenceProvider = ({ children }) => {
 
     const { noteNumber, noteValue, selectedTempo, createNotePattern } = useMetronome();
     const [barGroups, setBarGroups] = useLocalStorage("barGroups", []);
-    const idCounter = useRef(0);
+    const [idCounter, setIdCounter] = useLocalStorage("idCounter", 0);
     const [isUpdateModeOn, setIsUpdateModeOn] = useState(false);
-    const [sequenceID, setSequenceID] = useState(0);
+    const sequenceIDRef = useRef(0);
     const [customBarPattern, setCustomBarPattern] = useState(() => {
         if(barGroups.length > 0) return barGroups;
         return [];
@@ -22,7 +22,7 @@ export const BarSequenceProvider = ({ children }) => {
 
     const addToCustomBarPattern = () => {
         const barNotePattern = createNotePattern(noteNumber, noteValue);
-        const newBarPattern = { id: idCounter.current, barNoteNumber: noteNumber, barNoteValue: noteValue, tempo: selectedTempo, barNotePattern, numberOfBars: 2 };
+        const newBarPattern = { id: idCounter, barNoteNumber: noteNumber, barNoteValue: noteValue, tempo: selectedTempo, barNotePattern, numberOfBars: 2 };
         setCustomBarPattern(prevBarPatterns => {
           if(prevBarPatterns) return [...prevBarPatterns, newBarPattern];
           return [newBarPattern];
@@ -32,36 +32,35 @@ export const BarSequenceProvider = ({ children }) => {
           if(prevBarPatterns) return [...prevBarPatterns, newBarPattern];
           return [newBarPattern];
         }); 
-        idCounter.current++;
+        setIdCounter(prev => prev + 1);
       };
 
     const isBarSequenceUpdated = () => {
-        const customPattern = customBarPattern.find(pattern => pattern.id === sequenceID);
-        const groupPattern = barGroups.find(group => group.id === sequenceID);
+        const customPattern = customBarPattern.find(pattern => pattern.id === sequenceIDRef.current);
+        const groupPattern = barGroups.find(group => group.id === sequenceIDRef.current);
 
         if(!customPattern || !groupPattern) return false;
 
-        return Object.keys(customPattern).every(key => customPattern[key] === groupPattern[key]);
+        return !Object.keys(customPattern).every(key => customPattern[key] === groupPattern[key]);
     }
 
     const updateBarPattern = () => {
-        // compare customBarPattern with barGroups by barID
-        // if customBarPattern by ID is different from barGroups by ID
-        // update barGroups by ID with customBarPattern by ID
+        console.log(isBarSequenceUpdated());
 
         if(!isBarSequenceUpdated()) return;
 
-        const updatedData = customBarPattern.find(pattern => pattern.id === sequenceID);
+        const updatedData = customBarPattern.find(pattern => pattern.id === sequenceIDRef.current);
+        const currentSequenceID = sequenceIDRef.current;
         
         setBarGroups(barPatterns => {
             const updatedBarPatterns = barPatterns.map(barPattern => {
-                if(barPattern.id === sequenceID) return updatedData;
+                if(barPattern.id === currentSequenceID) return updatedData;
                 return barPattern;
             });
             return updatedBarPatterns;
         });
 
-        setSequenceID(0);
+        sequenceIDRef.current = 0;
     }
 
     const deleteBarPattern = (barID) => {
@@ -75,13 +74,13 @@ export const BarSequenceProvider = ({ children }) => {
             return updatedBarPatterns;
         });
 
-        if(customBarPattern.length === 1) idCounter.current = 0;
+        if(customBarPattern.length === 1) setIdCounter(0);
     }
 
     const deleteAllBarPatterns = () =>{
         setCustomBarPattern([]);
         setBarGroups([]);
-        idCounter.current = 0;
+        setIdCounter(0);
     }
 
     const value = {
@@ -93,8 +92,7 @@ export const BarSequenceProvider = ({ children }) => {
         deleteAllBarPatterns,
         isUpdateModeOn,
         setIsUpdateModeOn,
-        sequenceID,
-        setSequenceID
+        sequenceIDRef
     };
 
     return (

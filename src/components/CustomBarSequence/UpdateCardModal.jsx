@@ -5,7 +5,7 @@ import { useBarSequence } from "../../context/BarSequenceProvider";
 export default function UpdateCardModal({ isModalOpen, closeModal, selectedSequence }) {
 
     const { tempo, barNoteValue, barNoteNumber } = selectedSequence;
-    const { setIsUpdateModeOn } = useBarSequence();
+    const { setIsUpdateModeOn, updateBarPattern } = useBarSequence();
 
 
     function handleClick(){
@@ -26,8 +26,8 @@ export default function UpdateCardModal({ isModalOpen, closeModal, selectedSeque
                     <div>Note value: {barNoteValue}</div>
                     <div>Note number: {barNoteNumber}</div>
                     <hr/>
-                    <button className="delete-btn">Cancel</button>
-                    <button className="update-btn">Update</button>
+                    <button className="cancel-btn" onClick={handleClick}>Cancel</button>
+                    <button className="update-btn" onClick={updateBarPattern}>Update</button>
                 </div>   
                 <div className="modal-footer"></div>
             </div>

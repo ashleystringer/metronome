@@ -5,15 +5,17 @@ import { useBarSequence } from "../../context/BarSequenceProvider";
 export default function Card({ BarSequenceData, openUpdateModal, setSelectedSequence }) {
 
   const { id, tempo, barNoteValue, barNoteNumber } = BarSequenceData;
-  const { deleteBarPattern, setIsUpdateModeOn, setSequenceID } = useBarSequence();
+  const { deleteBarPattern, setIsUpdateModeOn, sequenceIDRef } = useBarSequence();
 
   const handleUpdateClick = () => {
+    console.log(BarSequenceData);
     setSelectedSequence(BarSequenceData);
     openUpdateModal();
     setIsUpdateModeOn(prev => {
       return true;
     });
-    setSequenceID(id);
+    sequenceIDRef.current = id;
+    console.log(sequenceIDRef.current);
   }
 
   return (

@@ -6,7 +6,7 @@ import { useBarSequence } from "../../context/BarSequenceProvider";
 export default function BPMRange() {
 
   const { selectedTempo, setSelectedTempo } = useMetronome();
-  const { isUpdateModeOn, sequenceID, setCustomBarPattern } = useBarSequence();
+  const { isUpdateModeOn, sequenceIDRef, setCustomBarPattern } = useBarSequence();
 
   function onChange(e){
       if(isUpdateModeOn){
@@ -20,7 +20,7 @@ export default function BPMRange() {
   function updatePrevTempo(){
     setCustomBarPattern(prev => {
       const updatedBarPatterns = prev.map(barPattern => {
-          if(barPattern.id === sequenceID) return {...barPattern, tempo: selectedTempo};
+          if(barPattern.id === sequenceIDRef.current) return {...barPattern, tempo: selectedTempo};
           return barPattern;
       });
       return updatedBarPatterns;
