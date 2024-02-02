@@ -6,7 +6,6 @@ import DisplayTime from "./DisplayTime";
 import MetronomeStartButton from "./MetronomeStartButton";
 import BPMRange from "./BPMRange";
 import TimeSignatureSelector from "./TimeSignatureSelector";
-import { simpleTime, compoundTime } from "../../utils/time-signatures";
 
 export default function Metronome() {
 
@@ -27,8 +26,8 @@ export default function Metronome() {
     noteNumber,
     setNoteNumber,
     notePattern,
-    setNotePattern,
-    mode
+    mode,
+    createNotePattern
   } = useMetronome();
 
   const {
@@ -94,7 +93,7 @@ export default function Metronome() {
               if(noteRef.current == barNotePattern.length){
                 noteRef.current = 0;
                 setSelectedNote(1);
-                barTrackerRef.current++;
+              barTrackerRef.current++;
               }
       
               if(barTrackerRef.current == numberOfBars && customPatternIndexRef.current < customBarPattern.length){
@@ -149,14 +148,6 @@ export default function Metronome() {
     noteRef.current = 0; //Subject to change?
     console.log("mode changed");
   }, [mode]);
-
-  useEffect(() => { //This will probably need to change.
-    if(noteValue == 4){
-      setNotePattern(simpleTime(noteNumber));
-    }else if(noteValue == 8){
-      setNotePattern(compoundTime(noteNumber));
-    }
-  }, [noteValue, noteNumber]);
 
   return (
     <div className="metronome">

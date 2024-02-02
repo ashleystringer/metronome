@@ -5,14 +5,15 @@ import { useBarSequence } from "../../context/BarSequenceProvider";
 
 export default function TimeSignatureSelector() {
 
-    const { setNoteValue, noteValue, setNoteNumber, noteNumber } = useMetronome();
+    const { setNoteValue, noteValue, setNoteNumber, noteNumber, createNotePattern, setNotePattern } = useMetronome();
     const { setCustomBarPattern, customBarPattern, isUpdateModeOn, sequenceIDRef } = useBarSequence();
 
-    function handleNoteValue(data){
+    function handleNoteValue(newNoteValue){
+        const newNotePattern = createNotePattern(noteNumber, newNoteValue);
         if(isUpdateModeOn){
             setCustomBarPattern(prev => {
                 const updatedBarPatterns = prev.map(barPattern => {
-                    if(barPattern.id === sequenceIDRef.current) return {...barPattern, barNoteValue: data};
+                    if(barPattern.id === sequenceIDRef.current) return {...barPattern, barNoteValue: newNoteValue, barNotePattern: newNotePattern};
                     return barPattern;
                 });
                 return updatedBarPatterns;
@@ -20,17 +21,17 @@ export default function TimeSignatureSelector() {
             const updatedData = customBarPattern.find(pattern => pattern.id === sequenceIDRef.current);
             console.log(updatedData);
         }else{
-            setNoteValue(prev => {
-                return data;
-            });
+            setNoteValue(newNoteValue);
+            setNotePattern(newNotePattern);
         }
     }
 
-    function handleNoteNum(data){
+    function handleNoteNum(newNoteNumber){
+        const newNotePattern = createNotePattern(newNoteNumber, noteValue);
         if(isUpdateModeOn){
             setCustomBarPattern(prev => {
                 const updatedBarPatterns = prev.map(barPattern => {
-                    if(barPattern.id === sequenceIDRef.current) return {...barPattern, barNoteNumber: data};
+                    if(barPattern.id === sequenceIDRef.current) return {...barPattern, barNoteNumber: newNoteNumber, barNotePattern: newNotePattern};
                     return barPattern;
                 });
                 return updatedBarPatterns;
@@ -39,9 +40,8 @@ export default function TimeSignatureSelector() {
             const updatedData = customBarPattern.find(pattern => pattern.id === sequenceIDRef.current);
             console.log(updatedData);
         }else{
-            setNoteNumber(prev => {
-                return data;
-            });
+            setNoteNumber(newNoteNumber);
+            setNotePattern(newNotePattern);
         }        
     }
 
