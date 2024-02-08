@@ -1,7 +1,6 @@
 import "./css/ModeSelector.css";
 import React from 'react';
 import { useMetronome } from "../../context/MetronomeProvider";
-//import { useLocalStorage } from "../hooks/useLocalStorage";
 import BarGroupSelector from '../CustomBarSequence/BarGroupSelector';
 
 export default function ModeSelector() {

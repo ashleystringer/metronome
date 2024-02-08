@@ -3,7 +3,7 @@ import { useMetronome } from "../../context/MetronomeProvider";
 import { useBarSequence } from "../../context/BarSequenceProvider";
 
 
-export default function BPMRange() {
+export default function TempoSlider() { 
 
   const { selectedTempo, setSelectedTempo } = useMetronome();
   const { isUpdateModeOn, sequenceIDRef, setCustomBarPattern } = useBarSequence();

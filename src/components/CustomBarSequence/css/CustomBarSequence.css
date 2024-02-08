@@ -1,4 +1,5 @@
-.custom-bar-sequence-containter{
+.custom-bar-sequence-container{
     display: flex;
     flex-direction: column;
+    position: relative;
 }

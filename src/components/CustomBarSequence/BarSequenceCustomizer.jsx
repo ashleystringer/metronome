@@ -5,9 +5,8 @@ import CardCollection from "./CardCollection";
 
 export default function BarSequenceCustomizer() {
   return (
-    <div className="custom-bar-sequence-containter">
+    <div className="custom-bar-sequence-container">
       <CardCollection/>
-      <BarSequenceCreator/>
     </div>
   )
 }

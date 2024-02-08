@@ -1,15 +1,12 @@
 import React from 'react';
-import { useMetronome } from "../../context/MetronomeProvider";
 import { useBarSequence } from "../../context/BarSequenceProvider";
 
 export default function BarSequenceCreator() {
-
-  const { selectedTempo, noteValue, noteNumber, mode } = useMetronome();
   const { addToCustomBarPattern } = useBarSequence();
 
   return (
     <>
-      <button onClick={ addToCustomBarPattern }>Add Bar Sequence</button>   
+      <button className='add-card-btn' onClick={ addToCustomBarPattern }>+</button>
     </>
   );
 }

@@ -4,7 +4,7 @@ import { useBarSequence } from "../../context/BarSequenceProvider";
 import * as Tone from "tone";
 import DisplayTime from "./DisplayTime";
 import MetronomeStartButton from "./MetronomeStartButton";
-import BPMRange from "./BPMRange";
+import TempoSlider from "./TempoSlider";
 import TimeSignatureSelector from "./TimeSignatureSelector";
 
 export default function Metronome() {
@@ -27,7 +27,6 @@ export default function Metronome() {
     setNoteNumber,
     notePattern,
     mode,
-    createNotePattern
   } = useMetronome();
 
   const {
@@ -145,14 +144,14 @@ export default function Metronome() {
   }, [isMetrOn, selectedTempo, noteNumber, notePattern, mode]);
 
   useEffect(() => {
-    noteRef.current = 0; //Subject to change?
+    noteRef.current = 0; 
     console.log("mode changed");
   }, [mode]);
 
   return (
     <div className="metronome">
       <DisplayTime/>
-      <BPMRange/>
+      <TempoSlider/>
       <MetronomeStartButton isMetrOn={isMetrOn} setIsMetrOn={setIsMetrOn}/>
       <TimeSignatureSelector/>
     </div>

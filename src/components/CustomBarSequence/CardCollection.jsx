@@ -3,6 +3,7 @@ import "./css/CardCollection.css";
 import { useBarSequence } from "../../context/BarSequenceProvider";
 import Card from "./Card";
 import UpdateCardModal from './UpdateCardModal';
+import BarSequenceCreator from './BarSequenceCreator';
 
 export default function CardCollection() {
 
@@ -25,26 +26,32 @@ const { customBarPattern } = useBarSequence();
   };
 
   return (
-    <div className="card-collection">
-      <button onClick={handleScrollLeft} className="scroll-btn">Scroll Left</button>
-      <div ref={scrollContainerRef} className="scroll-container">
-        { (customBarPattern.length !== 0) ? (customBarPattern.map((BarPattern, index) => {
-            return (<Card 
-              key={index} 
-              BarSequenceData={BarPattern} 
-              openUpdateModal={() => setIsModalOpen(true)} 
-              setSelectedSequence={setSelectedSequence}
-              />)
-          })) : "No bar sequences available"
-        }
+    <>
+      <div className="card-collection">
+        <button onClick={handleScrollLeft} className="scroll-btn">
+          <div className='scroll-arrow-left'></div>
+        </button>
+        <div ref={scrollContainerRef} className="scroll-container">
+          { (customBarPattern.length !== 0) ? (customBarPattern.map((BarPattern, index) => {
+              return (<Card 
+                key={index} 
+                BarSequenceData={BarPattern} 
+                openUpdateModal={() => setIsModalOpen(true)} 
+                setSelectedSequence={setSelectedSequence}
+                />)
+            })) : "No bar sequences available"
+          }
+        </div>
+        <button onClick={handleScrollRight} className="scroll-btn">
+          <div className='scroll-arrow-right'></div>
+        </button>
+        <UpdateCardModal 
+          isModalOpen={isModalOpen} 
+          closeModal={() => setIsModalOpen(false)}
+          selectedSequence={selectedSequence}
+          />
       </div>
-      <button className='add-card-btn'>+</button>
-      <button onClick={handleScrollRight} className="scroll-btn">Scroll Right</button>
-      <UpdateCardModal 
-        isModalOpen={isModalOpen} 
-        closeModal={() => setIsModalOpen(false)}
-        selectedSequence={selectedSequence}
-        />
-    </div>
+      <BarSequenceCreator/>
+    </>
   );
 }
