@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import "./css/Card.css";
 import { useBarSequence } from "../../context/BarSequenceProvider";
 
@@ -17,6 +17,10 @@ export default function Card({ BarSequenceData, openUpdateModal, setSelectedSequ
     sequenceIDRef.current = id;
     console.log(sequenceIDRef.current);
   }
+
+  useEffect(() => {
+    console.log('tempo, barNoteValue, or barNoteNumber has changed.');
+  }, [tempo, barNoteValue, barNoteNumber]);
 
   return (
     <div className="bar-sequence-card">

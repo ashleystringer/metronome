@@ -20,10 +20,9 @@ export default function TimeSignatureSelector() {
             });
             const updatedData = customBarPattern.find(pattern => pattern.id === sequenceIDRef.current);
             console.log(updatedData);
-        }else{
-            setNoteValue(newNoteValue);
-            setNotePattern(newNotePattern);
         }
+        setNoteValue(newNoteValue);
+        setNotePattern(newNotePattern); 
     }
 
     function handleNoteNum(newNoteNumber){
@@ -39,10 +38,9 @@ export default function TimeSignatureSelector() {
 
             const updatedData = customBarPattern.find(pattern => pattern.id === sequenceIDRef.current);
             console.log(updatedData);
-        }else{
-            setNoteNumber(newNoteNumber);
-            setNotePattern(newNotePattern);
-        }        
+        }   
+        setNoteNumber(newNoteNumber);
+        setNotePattern(newNotePattern);  
     }
 
     //className={ noteValue === 4 ?  `${btn} selected` : btn}

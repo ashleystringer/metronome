@@ -49,6 +49,7 @@ export default function Metronome() {
               setSelectedNote(1);
             }
     
+            // REDUNDANT CODE
             if(notePattern[noteRef.current] == 1){
               synth.triggerAttackRelease("C3", noteValueStr);
             }else if(notePattern[noteRef.current] == 2){
@@ -56,6 +57,7 @@ export default function Metronome() {
             }else{
               synth.triggerAttackRelease("C4", noteValueStr);
             }
+            //
     
             noteRef.current++;
             setSelectedNote(noteRef.current);
@@ -116,6 +118,7 @@ export default function Metronome() {
                 ({ barNotePattern, numberOfBars } = customBarPattern[customPatternIndexRef.current]);
               }
 
+              // REDUNDANT CODE
               if(barNotePattern[noteRef.current] == 1){
                 synth.triggerAttackRelease("C3", noteValueStr);
               }else if(barNotePattern[noteRef.current] == 2){
@@ -123,6 +126,7 @@ export default function Metronome() {
               }else{
                 synth.triggerAttackRelease("C4", noteValueStr);
               }
+              //
 
               noteRef.current++;
               setSelectedNote(noteRef.current);

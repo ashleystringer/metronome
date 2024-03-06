@@ -7,6 +7,11 @@ import BarSequenceCreator from './BarSequenceCreator';
 
 export default function CardCollection() {
 
+  /*
+   - Make sure to fix UpdateCardModal.jsx to display the correct (updated) data
+   - Make sure the Card data is only changed when the user clicks the "Update" button
+  */
+
 const [isModalOpen, setIsModalOpen] = useState(false);
 const [selectedSequence, setSelectedSequence] = useState({});
 const { customBarPattern } = useBarSequence();
