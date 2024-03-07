@@ -1,6 +1,7 @@
 import React, { useState, createContext, useContext, useRef } from 'react';
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { useMetronome } from "../context/MetronomeProvider";
+import { useBarGroup } from "../context/BarGroupProvider";
 
 export const BarSequenceContext = createContext();
 
@@ -11,22 +12,26 @@ export function useBarSequence(){
 export const BarSequenceProvider = ({ children }) => {
 
     const { noteNumber, noteValue, selectedTempo, createNotePattern } = useMetronome();
-    const [barGroups, setBarGroups] = useLocalStorage("barGroups", []);
+    //const { barGroup, addBarGroup, updateBarGroup, deleteBarGroup } = useBarGroup();
+    const [barGroups, setBarGroups] = useLocalStorage("barGroups", []); //barSequence
+    //const [barGroups, setBarGroups] = useLocalStorage("barGroups", []);
     const [idCounter, setIdCounter] = useLocalStorage("idCounter", 0);
     const [isUpdateModeOn, setIsUpdateModeOn] = useState(false);
     const sequenceIDRef = useRef(0);
-    const [customBarPattern, setCustomBarPattern] = useState(() => {
+    const [customBarPattern, setCustomBarPattern] = useState(() => { //customBarGroup
         if(barGroups.length > 0) return barGroups;
         return [];
     });
 
-    const addToCustomBarPattern = () => {
+    const addToCustomBarPattern = () => { //addToCustomBarSequence
         const barNotePattern = createNotePattern(noteNumber, noteValue);
         const newBarPattern = { id: idCounter, barNoteNumber: noteNumber, barNoteValue: noteValue, tempo: selectedTempo, barNotePattern, numberOfBars: 2 };
         setCustomBarPattern(prevBarPatterns => {
           if(prevBarPatterns) return [...prevBarPatterns, newBarPattern];
           return [newBarPattern];
         }); 
+        
+        //addBarGroup(newBarPattern);
         
         setBarGroups(prevBarPatterns => {
           if(prevBarPatterns) return [...prevBarPatterns, newBarPattern];
@@ -44,7 +49,7 @@ export const BarSequenceProvider = ({ children }) => {
         return !Object.keys(customPattern).every(key => customPattern[key] === groupPattern[key]);
     }
 
-    const updateBarPattern = () => {
+    const updateBarPattern = () => { //updateBarSequence
         console.log(isBarSequenceUpdated());
 
         if(!isBarSequenceUpdated()) return;
@@ -63,7 +68,7 @@ export const BarSequenceProvider = ({ children }) => {
         sequenceIDRef.current = 0;
     }
 
-    const deleteBarPattern = (barID) => {
+    const deleteBarPattern = (barID) => { //deleteBarSequence
         setCustomBarPattern(barPatterns => {
             const updatedBarPatterns = barPatterns.filter(bar => bar.id !== barID);
             return updatedBarPatterns;
@@ -75,21 +80,25 @@ export const BarSequenceProvider = ({ children }) => {
         });
 
         if(customBarPattern.length === 1) setIdCounter(0);
+
+        //updateBarGroup({ id: barID });
     }
 
-    const deleteAllBarPatterns = () =>{
+    const deleteAllBarPatterns = () =>{ //deleteAllBarSequence
         setCustomBarPattern([]);
         setBarGroups([]);
         setIdCounter(0);
+
+        //deleteBarGroup({ id: barID });
     }
 
     const value = {
-        customBarPattern,
-        setCustomBarPattern,
-        addToCustomBarPattern,
-        updateBarPattern,
-        deleteBarPattern,
-        deleteAllBarPatterns,
+        customBarPattern, //customBarGroup
+        setCustomBarPattern, //setCustomBarSequence
+        addToCustomBarPattern, //addToCustomBarSequence
+        updateBarPattern, //updateBarSequence
+        deleteBarPattern, //deleteBarSequence
+        deleteAllBarPatterns, //deleteAllBarSequence
         isUpdateModeOn,
         setIsUpdateModeOn,
         sequenceIDRef
